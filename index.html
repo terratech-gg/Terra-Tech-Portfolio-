@@ -1,0 +1,2868 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terra Tech </title>
+    <link rel="icon" type="logo-icon" href="logo.png">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Orbitron:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #0a0a0f;
+            --bg-darker: #050508;
+            --accent-blue: #00f3ff;
+            --accent-purple: #b967ff;
+            --accent-pink: #ff4de5;
+            --text-light: #ffffff;
+            --text-gray: #b0b0c0;
+            --card-bg: rgba(25, 25, 40, 0.6);
+            --card-border: rgba(100, 100, 200, 0.2);
+            --transition: all 0.4s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-light);
+            overflow-x: hidden;
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: linear-gradient(45deg, var(--accent-blue), var(--accent-purple));
+            color: var(--text-light);
+            border: none;
+            border-radius: 30px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition);
+            z-index: 1;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--accent-purple), var(--accent-pink));
+            transition: var(--transition);
+            z-index: -1;
+        }
+
+        .btn:hover::before {
+            left: 0;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(185, 103, 255, 0.4);
+        }
+
+        /* Header & Navigation */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px 0;
+            z-index: 1000;
+            transition: var(--transition);
+            background: rgba(10, 10, 15, 0.95);
+            backdrop-filter: blur(10px);
+        }
+
+        header.scrolled {
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            padding: 15px 0;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, var(--accent-blue), var(--accent-purple));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .logo-icon {
+            font-size: 2rem;
+            background: linear-gradient(45deg, var(--accent-blue), var(--accent-purple));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 30px;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            padding: 5px 0;
+        }
+
+        /* Language Switcher */
+        .language-switcher {
+            margin-left: 20px;
+        }
+
+        .lang-btn {
+            background: linear-gradient(45deg, var(--accent-blue), var(--accent-purple));
+            color: var(--text-light);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition);
+            font-size: 0.9rem;
+        }
+
+        .lang-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(185, 103, 255, 0.4);
+        }
+
+        .lang-btn i {
+            font-size: 1rem;
+        }
+
+        /* RTL Support */
+        body[dir="rtl"] {
+            direction: rtl;
+            text-align: right;
+        }
+
+        body[dir="rtl"] .nav-links {
+            flex-direction: row-reverse;
+        }
+
+        body[dir="rtl"] .language-switcher {
+            margin-left: 0;
+            margin-right: 20px;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(45deg, var(--accent-blue), var(--accent-purple));
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            background: radial-gradient(circle at center, rgba(185, 103, 255, 0.1) 0%, rgba(10, 10, 15, 0) 70%);
+        }
+
+        .hero-shapes {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--accent-blue), var(--accent-purple));
+            filter: blur(60px);
+            opacity: 0.3;
+            animation: float 15s infinite ease-in-out;
+        }
+
+        .shape:nth-child(1) {
+            width: 300px;
+            height: 300px;
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .shape:nth-child(2) {
+            width: 200px;
+            height: 200px;
+            top: 60%;
+            left: 70%;
+            animation-delay: 2s;
+        }
+
+        .shape:nth-child(3) {
+            width: 250px;
+            height: 250px;
+            top: 30%;
+            left: 80%;
+            animation-delay: 4s;
+        }
+
+        .hero-content {
+            max-width: 700px;
+            z-index: 2;
+            text-align: center;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, var(--accent-blue), var(--accent-purple));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 0.8s forwards 0.3s;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-gray);
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 0.8s forwards 0.5s;
+        }
+
+        .hero-btn {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 0.8s forwards 0.7s;
+        }
+
+        /* Sections */
+        section {
+            padding: 100px 0;
+            position: relative;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 70px;
+            position: relative;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            display: inline-block;
+            background: linear-gradient(45deg, var(--accent-blue), var(--accent-purple));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 0.8s forwards;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(45deg, var(--accent-blue), var(--accent-purple));
+            margin: 15px auto 0;
+            border-radius: 2px;
+        }
+
+        /* About Section */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .about-text {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 0.8s forwards 0.3s;
+        }
+
+        .about-text p {
+            margin-bottom: 20px;
+            color: var(--text-gray);
+        }
+
+        .about-image {
+            position: relative;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 0.8s forwards 0.5s;
+        }
+
+        .about-img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .about-overlay {
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            width: 100%;
+            height: 100%;
+            border: 2px solid var(--accent-purple);
+            border-radius: 10px;
+            z-index: -1;
+        }
+
+        /* Services Section */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .service-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .service-card:nth-child(1) { animation: fadeUp 0.8s forwards 0.2s; }
+        .service-card:nth-child(2) { animation: fadeUp 0.8s forwards 0.4s; }
+        .service-card:nth-child(3) { animation: fadeUp 0.8s forwards 0.6s; }
+        .service-card:nth-child(4) { animation: fadeUp 0.8s forwards 0.8s; }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(0, 243, 255, 0.1), rgba(185, 103, 255, 0.1));
+            z-index: -1;
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .service-card:hover::before {
+            opacity: 1;
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, var(--accent-blue), var(--accent-purple));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        .service-card p {
+            color: var(--text-gray);
+            font-size: 0.95rem;
+        }
+
+        .service-mockup {
+            width: 100%;
+            height: 180px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .mockup-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .service-card:hover .mockup-img {
+            transform: scale(1.05);
+        }
+
+        /* Portfolio Section */
+        .portfolio-section {
+            background: var(--bg-darker);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .portfolio-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 80% 20%, rgba(185, 103, 255, 0.05) 0%, rgba(10, 10, 15, 0) 70%);
+            z-index: 1;
+        }
+
+        .portfolio-container {
+            position: relative;
+            z-index: 2;
+        }
+
+        .portfolio-filters {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+
+        .filter-btn {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            color: var(--text-light);
+            padding: 10px 25px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.9rem;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: linear-gradient(45deg, var(--accent-blue), var(--accent-purple));
+            border-color: transparent;
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .portfolio-item {
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+            height: 280px;
+            transition: var(--transition);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--card-border);
+            opacity: 0;
+            transform: translateY(20px);
+            cursor: pointer;
+        }
+
+        .portfolio-item:nth-child(1) { animation: fadeUp 0.8s forwards 0.2s; }
+        .portfolio-item:nth-child(2) { animation: fadeUp 0.8s forwards 0.4s; }
+        .portfolio-item:nth-child(3) { animation: fadeUp 0.8s forwards 0.6s; }
+        .portfolio-item:nth-child(4) { animation: fadeUp 0.8s forwards 0.8s; }
+        .portfolio-item:nth-child(5) { animation: fadeUp 0.8s forwards 1.0s; }
+        .portfolio-item:nth-child(6) { animation: fadeUp 0.8s forwards 1.2s; }
+        .portfolio-item:nth-child(7) { animation: fadeUp 0.8s forwards 1.4s; }
+        .portfolio-item:nth-child(8) { animation: fadeUp 0.8s forwards 1.6s; }
+        .portfolio-item:nth-child(9) { animation: fadeUp 0.8s forwards 1.8s; }
+
+        .portfolio-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .portfolio-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(0deg, rgba(0, 0, 0, 0.9), transparent 60%);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 25px;
+            transition: var(--transition);
+        }
+
+        .portfolio-item:hover .portfolio-overlay {
+            background: rgba(0, 0, 0, 0.8);
+        }
+
+        .portfolio-item:hover .portfolio-img {
+            transform: scale(1.05);
+        }
+
+        .portfolio-overlay h3 {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+        }
+
+        .portfolio-overlay .category {
+            background: linear-gradient(45deg, var(--accent-blue), var(--accent-purple));
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-bottom: 15px;
+        }
+
+        .portfolio-overlay p {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            min-height: 60px;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .tech-tag {
+            background: rgba(0, 243, 255, 0.1);
+            color: var(--accent-blue);
+            padding: 3px 10px;
+            border-radius: 15px;
+            font-size: 0.75rem;
+        }
+
+        /* Project Stats */
+        .project-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 60px;
+            padding: 30px;
+            background: var(--card-bg);
+            border-radius: 15px;
+            border: 1px solid var(--card-border);
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, var(--accent-blue), var(--accent-purple));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            color: var(--text-gray);
+            font-size: 1rem;
+        }
+
+        /* Why Choose Us Section */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 15px;
+            padding: 30px;
+            transition: var(--transition);
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .feature-card:nth-child(1) { animation: fadeUp 0.8s forwards 0.2s; }
+        .feature-card:nth-child(2) { animation: fadeUp 0.8s forwards 0.4s; }
+        .feature-card:nth-child(3) { animation: fadeUp 0.8s forwards 0.6s; }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, var(--accent-blue), var(--accent-purple));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .feature-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+        }
+
+        .feature-card p {
+            color: var(--text-gray);
+        }
+
+        /* Contact Section */
+        .contact-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .contact-info {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 0.8s forwards 0.3s;
+            width: 100%;
+        }
+
+        .contact-title {
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, var(--accent-blue), var(--accent-purple));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .contact-logo {
+            margin: 40px 0;
+            text-align: center;
+        }
+
+        .contact-logo .logo-icon {
+            font-size: 4rem;
+            margin-bottom: 15px;
+        }
+
+        .contact-details {
+            margin-top: 30px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .contact-item {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 25px;
+            transition: var(--transition);
+        }
+
+        .contact-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .contact-icon {
+            font-size: 2rem;
+            color: var(--accent-purple);
+            margin-bottom: 15px;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--bg-darker);
+            padding: 50px 0 20px;
+            position: relative;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .footer-logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            background: linear-gradient(45deg, var(--accent-blue), var(--accent-purple));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .footer-about p {
+            color: var(--text-gray);
+            margin-bottom: 20px;
+        }
+
+        .footer-links h4 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .footer-links h4::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: linear-gradient(45deg, var(--accent-blue), var(--accent-purple));
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: var(--text-gray);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-blue);
+            padding-left: 5px;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--text-gray);
+            font-size: 0.9rem;
+        }
+
+        /* Project Detail Modal */
+        .project-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            overflow-y: auto;
+            padding: 50px 20px;
+        }
+
+        .modal-content {
+            background: var(--bg-darker);
+            max-width: 900px;
+            margin: 0 auto;
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: white;
+            font-size: 1.8rem;
+            cursor: pointer;
+            z-index: 10;
+            transition: var(--transition);
+        }
+
+        .modal-close:hover {
+            color: var(--accent-purple);
+            transform: rotate(90deg);
+        }
+
+        .modal-header {
+            position: relative;
+            height: 400px;
+            overflow: hidden;
+        }
+
+        .modal-header img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .modal-body {
+            padding: 40px;
+        }
+
+        .modal-title {
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, var(--accent-blue), var(--accent-purple));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .modal-category {
+            background: linear-gradient(45deg, var(--accent-blue), var(--accent-purple));
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+
+        .modal-description {
+            margin-bottom: 30px;
+            color: var(--text-gray);
+            line-height: 1.8;
+        }
+
+        .modal-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .modal-section h3 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            position: relative;
+        }
+
+        .modal-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: linear-gradient(45deg, var(--accent-blue), var(--accent-purple));
+        }
+
+        .modal-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .modal-tech-tag {
+            background: rgba(0, 243, 255, 0.1);
+            color: var(--accent-blue);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+
+        .modal-features li {
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 20px;
+            color: var(--text-gray);
+        }
+
+        .modal-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--accent-purple);
+        }
+
+        .modal-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Animations */
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            0% {
+                transform: translate(0, 0);
+            }
+            50% {
+                transform: translate(20px, -20px);
+            }
+            100% {
+                transform: translate(0, 0);
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Enhanced hover effects */
+        .trust-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 243, 255, 0.2);
+        }
+
+        .trust-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .feature-image img:hover {
+            transform: scale(1.1);
+        }
+
+        .service-gallery img:hover {
+            transform: scale(1.1);
+        }
+
+        /* Floating animation for trust items */
+        .trust-item:nth-child(1) {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .trust-item:nth-child(2) {
+            animation: float 6s ease-in-out infinite 2s;
+        }
+
+        .trust-item:nth-child(3) {
+            animation: float 6s ease-in-out infinite 4s;
+        }
+
+        /* Enhanced service card animations */
+        .service-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 20px 40px rgba(185, 103, 255, 0.3);
+        }
+
+        .service-card:hover .service-icon {
+            animation: pulse 1s ease-in-out;
+        }
+
+        /* Enhanced feature card animations */
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 243, 255, 0.2);
+        }
+
+        .feature-card:hover .feature-icon {
+            /* Removed rotation animation - icon stays fixed */
+            transform: scale(1.1);
+            transition: transform 0.3s ease;
+        }
+
+        /* Client showcase animations */
+        .client-card {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 0.8s forwards;
+        }
+
+        .client-card:nth-child(1) { animation-delay: 0.2s; }
+        .client-card:nth-child(2) { animation-delay: 0.4s; }
+        .client-card:nth-child(3) { animation-delay: 0.6s; }
+
+        .client-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(185, 103, 255, 0.3);
+        }
+
+        .client-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .client-card img {
+            transition: transform 0.5s ease;
+        }
+
+        /* Enhanced trust images */
+        .trust-images {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 0.8s forwards 0.8s;
+        }
+
+        /* Technology showcase animations */
+        .tech-item {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 0.8s forwards;
+        }
+
+        .tech-item:nth-child(1) { animation-delay: 0.2s; }
+        .tech-item:nth-child(2) { animation-delay: 0.4s; }
+        .tech-item:nth-child(3) { animation-delay: 0.6s; }
+        .tech-item:nth-child(4) { animation-delay: 0.8s; }
+
+        .tech-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 243, 255, 0.3);
+        }
+
+        .tech-item:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Office showcase animations */
+        .office-showcase img {
+            transition: transform 0.3s ease;
+        }
+
+        .office-showcase img:hover {
+            transform: scale(1.05);
+        }
+
+        /* Additional projects animations */
+        .showcase-item {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 0.8s forwards;
+        }
+
+        .showcase-item:nth-child(1) { animation-delay: 0.2s; }
+        .showcase-item:nth-child(2) { animation-delay: 0.4s; }
+        .showcase-item:nth-child(3) { animation-delay: 0.6s; }
+
+        .showcase-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(185, 103, 255, 0.3);
+        }
+
+        .showcase-item:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Smooth image transitions */
+        .service-gallery img,
+        .feature-image img,
+        .trust-item img,
+        .client-card img {
+            transition: all 0.3s ease;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+            .about-image {
+                order: -1;
+            }
+            .modal-grid {
+                grid-template-columns: 1fr;
+            }
+            .portfolio-grid {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                right: -100%;
+                width: 70%;
+                height: calc(100vh - 80px);
+                background: var(--bg-darker);
+                flex-direction: column;
+                align-items: center;
+                padding-top: 50px;
+                transition: var(--transition);
+                z-index: 999;
+            }
+            .nav-links.active {
+                right: 0;
+            }
+            .nav-links li {
+                margin: 20px 0;
+            }
+            .hero h1 {
+                font-size: 2.3rem;
+            }
+            .hero p {
+                font-size: 1.1rem;
+            }
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+            .modal-header {
+                height: 300px;
+            }
+            .modal-body {
+                padding: 25px;
+            }
+            .project-modal {
+                padding: 20px 10px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            .portfolio-filters {
+                justify-content: flex-start;
+                overflow-x: auto;
+                padding-bottom: 10px;
+            }
+            .filter-btn {
+                white-space: nowrap;
+                flex-shrink: 0;
+            }
+            .modal-body {
+                padding: 20px;
+            }
+            .modal-footer {
+                flex-direction: column;
+                gap: 20px;
+            }
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+            .features {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header id="header">
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <img src="logo.png" alt="Terra Tech Logo" style="width: 40px; height: 40px; margin-right: 10px;">
+                    <span>Terra Tech</span>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#hero" data-en="Home" data-ar="الرئيسية">Home</a></li>
+                    <li><a href="#about" data-en="About" data-ar="من نحن">About</a></li>
+                    <li><a href="#services" data-en="Services" data-ar="خدماتنا">Services</a></li>
+                    <li><a href="#portfolio" data-en="Portfolio" data-ar="أعمالنا">Portfolio</a></li>
+                    <li><a href="#features" data-en="Why Us" data-ar="لماذا نحن">Why Us</a></li>
+                    <li><a href="#contact" data-en="Contact" data-ar="اتصل بنا">Contact</a></li>
+                </ul>
+                <div class="language-switcher">
+                    <button id="langToggle" class="lang-btn">
+                        <span class="lang-text">العربية</span>
+                        <i class="fas fa-globe"></i>
+                    </button>
+                </div>
+                <div class="hamburger">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero">
+        <div class="hero-shapes">
+            <div class="shape"></div>
+            <div class="shape"></div>
+            <div class="shape"></div>
+        </div>
+        <div class="container">
+            <div class="hero-content">
+                <h1 data-en="We Build Future-Ready Digital Solutions" data-ar="نحن نبني حلول رقمية جاهزة للمستقبل">We Build Future-Ready Digital Solutions</h1>
+                <p data-en="From websites to AI-powered tools, we craft technology that works for you." data-ar="من المواقع الإلكترونية إلى أدوات الذكاء الاصطناعي، نحن نصنع تقنية تعمل من أجلك">From websites to AI-powered tools, we craft technology that works for you.</p>
+                <div class="slogan" style="margin: 20px 0; padding: 15px 25px; background: linear-gradient(135deg, rgba(185, 103, 255, 0.1), rgba(255, 107, 139, 0.1)); border: 1px solid rgba(185, 103, 255, 0.3); border-radius: 15px; display: inline-block;">
+                    <p style="margin: 0; font-size: 1.1rem; color: var(--accent-purple); font-weight: 600; text-align: center;" data-en='✨ "½ Ideas, ²⁄₂ Execution" — Where visions take shape' data-ar='✨ "½ أفكار،²⁄₂ تنفيذ" — حيث تتشكل الرؤى'>
+                        “½ Ideas, ²⁄₂ Execution — Where visions take shape”
+                </div>
+                <a href="#portfolio" class="btn hero-btn" data-en="View Our Portfolio" data-ar="شاهد أعمالنا">View Our Portfolio</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section">
+        <div class="container">
+            <div class="section-title">
+                <h2 data-en="Who We Are" data-ar="من نحن">Who We Are</h2>
+            </div>
+            <div class="about-content">
+                <div class="about-text">
+                    <p data-en="TERRA Technologies is a leading technology solutions provider helping businesses transform and grow through innovation. With expertise in cutting-edge technologies, we deliver customized solutions that drive digital transformation." data-ar="تيرا تك هي شركة رائدة في تقديم حلول تقنية تساعد الشركات على التحول والنمو من خلال الابتكار. مع خبرة في التقنيات المتطورة، نقدم حلولاً مخصصة تدفع التحول الرقمي.">TERRA Technologies is a leading technology solutions provider helping businesses transform and grow through innovation. With expertise in cutting-edge technologies, we deliver customized solutions that drive digital transformation.</p>
+                    <p data-en="Founded in 2023, TERRA Technologies has been pioneering digital transformation for a decade. As we enter 2025, we continue to be at the forefront of software innovation and technological advancement. We're a team of passionate technologists dedicated to helping businesses leverage cutting-edge software solutions to achieve their goals." data-ar="تأسست تيرا تك في عام 2023، وقد كانت رائدة في التحول الرقمي لعقد من الزمان. مع دخولنا عام 2025، نستمر في أن نكون في طليعة الابتكار البرمجي والتقدم التقني. نحن فريق من التقنيين المتحمسين المكرسين لمساعدة الشركات على الاستفادة من الحلول البرمجية المتطورة لتحقيق أهدافها.">Founded in 2023, TERRA Technologies has been pioneering digital transformation for a decade. As we enter 2025, we continue to be at the forefront of software innovation and technological advancement. We're a team of passionate technologists dedicated to helping businesses leverage cutting-edge software solutions to achieve their goals.</p>
+                    <p data-en="With exceptional expertise in software development, digital transformation, and enterprise solutions, we've successfully helped hundreds of clients transform their operations and scale their businesses. Our commitment to innovation and excellence has made us a trusted partner in the technology industry." data-ar="مع خبرة استثنائية في تطوير البرمجيات والتحول الرقمي والحلول المؤسسية، ساعدنا بنجاح مئات العملاء على تحويل عملياتهم وتوسيع أعمالهم. التزامنا بالابتكار والتميز جعلنا شريكاً موثوقاً في صناعة التكنولوجيا.">With exceptional expertise in software development, digital transformation, and enterprise solutions, we've successfully helped hundreds of clients transform their operations and scale their businesses. Our commitment to innovation and excellence has made us a trusted partner in the technology industry.</p>
+                    <p data-en="We are proud to support students and young professionals by offering part-time employment opportunities. Our company culture is built on fostering talent and providing real-world experience to the next generation of technologists." data-ar="نحن فخورون بدعم الطلاب والمهنيين الشباب من خلال تقديم فرص عمل بدوام جزئي. ثقافة شركتنا مبنية على تنمية المواهب وتقديم الخبرة العملية للجيل القادم من التقنيين.">We are proud to support students and young professionals by offering part-time employment opportunities. Our company culture is built on fostering talent and providing real-world experience to the next generation of technologists.</p>
+                </div>
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="TERRA Technologies Team" class="about-img">
+                    <div class="about-overlay"></div>
+                </div>
+            </div>
+            
+            <!-- Additional Trust Images Section -->
+            <div class="trust-images" style="margin-top: 60px;">
+                <h3 style="text-align: center; margin-bottom: 40px; color: var(--text-light);" data-en="Our Success Stories" data-ar="قصص نجاحنا">Our Success Stories</h3>
+                <div class="trust-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px;">
+                    <div class="trust-item" style="text-align: center; background: var(--card-bg); border-radius: 15px; padding: 25px; border: 1px solid var(--card-border); transition: var(--transition);">
+                        <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1471&q=80" alt="Team Collaboration" style="width: 100%; height: 180px; object-fit: cover; border-radius: 10px; margin-bottom: 20px;">
+                        <h4 style="color: var(--accent-blue); margin-bottom: 15px;" data-en="Team Collaboration" data-ar="تعاون الفريق">Team Collaboration</h4>
+                        <p style="color: var(--text-gray); font-size: 0.9rem;" data-en="Our collaborative approach ensures every project meets the highest standards of quality and innovation." data-ar="نهجنا التعاوني يضمن أن كل مشروع يلبي أعلى معايير الجودة والابتكار.">Our collaborative approach ensures every project meets the highest standards of quality and innovation.</p>
+                    </div>
+                    <div class="trust-item" style="text-align: center; background: var(--card-bg); border-radius: 15px; padding: 25px; border: 1px solid var(--card-border); transition: var(--transition);">
+                        <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80" alt="Innovation Hub" style="width: 100%; height: 180px; object-fit: cover; border-radius: 10px; margin-bottom: 20px;">
+                        <h4 style="color: var(--accent-blue); margin-bottom: 15px;" data-en="Innovation Hub" data-ar="مركز الابتكار">Innovation Hub</h4>
+                        <p style="color: var(--text-gray); font-size: 0.9rem;" data-en="State-of-the-art development environment where creativity meets cutting-edge technology." data-ar="بيئة تطوير متطورة حيث يلتقي الإبداع بأحدث التقنيات.">State-of-the-art development environment where creativity meets cutting-edge technology.</p>
+                    </div>
+                    <div class="trust-item" style="text-align: center; background: var(--card-bg); border-radius: 15px; padding: 25px; border: 1px solid var(--card-border); transition: var(--transition);">
+                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1415&q=80" alt="Client Success" style="width: 100%; height: 180px; object-fit: cover; border-radius: 10px; margin-bottom: 15px;">
+                        <h4 style="color: var(--accent-pink); margin-bottom: 15px;" data-en="Client Success" data-ar="نجاح العملاء">Client Success</h4>
+                        <p style="color: var(--text-gray); font-size: 0.9rem;" data-en="Proven track record of delivering successful projects that exceed client expectations." data-ar="سجل حافل بتسليم مشاريع ناجحة تتجاوز توقعات العملاء.">Proven track record of delivering successful projects that exceed client expectations.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="section">
+        <div class="container">
+            <div class="section-title">
+                <h2 data-en="Our Services" data-ar="خدماتنا">Our Services</h2>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <h3 data-en="Website Development" data-ar="تطوير المواقع الإلكترونية">Website Development</h3>
+                    <p data-en="Professional, responsive websites that engage visitors and drive conversions. We build modern, high-performance websites tailored to your business goals." data-ar="مواقع إلكترونية احترافية ومتجاوبة تجذب الزوار وتدفع التحويلات. نحن نبني مواقع حديثة وعالية الأداء مصممة خصيصاً لأهداف عملك.">Professional, responsive websites that engage visitors and drive conversions. We build modern, high-performance websites tailored to your business goals.</p>
+                    <div class="service-mockup">
+                        <img src="https://images.unsplash.com/photo-1463171379579-3fdfb86d6285?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Website Mockup" class="mockup-img">
+                    </div>
+                    <div class="service-gallery" style="margin-top: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                        <img src="https://images.unsplash.com/photo-1547658719-da2b51169166?ixlib=rb-4.0.3&auto=format&fit=crop&w=1480&q=80" alt="Web Project 1" style="width: 100%; height: 80px; object-fit: cover; border-radius: 8px; transition: transform 0.3s ease;">
+                        <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80" alt="Web Project 2" style="width: 100%; height: 80px; object-fit: cover; border-radius: 8px; transition: transform 0.3s ease;">
+                    </div>
+                </div>
+                                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3 data-en="Mobile Applications" data-ar="تطبيقات الهاتف المحمول">Mobile Applications</h3>
+                    <p data-en="Native and cross-platform mobile apps designed for exceptional user experiences on iOS and Android devices. Specializing in Flutter for beautiful, fast, and natively compiled applications." data-ar="تطبيقات هاتف محمول أصلية ومتعددة المنصات مصممة لتجارب مستخدم استثنائية على أجهزة iOS وAndroid. متخصصون في Flutter لتطبيقات جميلة وسريعة ومترجمة أصلياً.">Native and cross-platform mobile apps designed for exceptional user experiences on iOS and Android devices. Specializing in Flutter for beautiful, fast, and natively compiled applications.</p>
+                     <div class="service-mockup">
+                         <img src="https://images.unsplash.com/photo-1607252650355-f7fd0460ccdb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Mobile App Mockup" class="mockup-img">
+                     </div>
+                     <div class="service-gallery" style="margin-top: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                         <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1374&q=80" alt="Mobile Project 1" style="width: 100%; height: 80px; object-fit: cover; border-radius: 8px; transition: transform 0.3s ease;">
+                         <img src="https://images.unsplash.com/photo-1611224923853-80b023f02d71?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80" alt="Mobile Project 2" style="width: 100%; height: 80px; object-fit: cover; border-radius: 8px; transition: transform 0.3s ease;">
+                     </div>
+
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-server"></i>
+                    </div>
+                    <h3 data-en="Software Systems" data-ar="أنظمة البرمجيات">Software Systems</h3>
+                    <p data-en="Custom software solutions, enterprise systems, and scalable architectures that power your business operations." data-ar="حلول برمجية مخصصة وأنظمة مؤسسية وهندسات قابلة للتوسع تشغل عمليات عملك.">Custom software solutions, enterprise systems, and scalable architectures that power your business operations.</p>
+                                         <div class="service-mockup">
+                         <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Software System" class="mockup-img">
+                     </div>
+                     <div class="service-gallery" style="margin-top: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                         <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80" alt="Software Project 1" style="width: 100%; height: 80px; object-fit: cover; border-radius: 8px; transition: transform 0.3s ease;">
+                         <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80" alt="Software Project 2" style="width: 100%; height: 80px; object-fit: cover; border-radius: 8px; transition: transform 0.3s ease;">
+                     </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3 data-en="AI Tools & Models" data-ar="أدوات ونماذج الذكاء الاصطناعي">AI Tools & Models</h3>
+                    <p data-en="Intelligent automation, machine learning models, and AI solutions that transform data into actionable insights." data-ar="أتمتة ذكية ونماذج تعلم الآلة وحلول الذكاء الاصطناعي التي تحول البيانات إلى رؤى قابلة للتنفيذ.">Intelligent automation, machine learning models, and AI solutions that transform data into actionable insights.</p>
+                                         <div class="service-mockup">
+                         <img src="ai.jpg" alt="AI Visualization" class="mockup-img">
+                     </div>
+                     <div class="service-gallery" style="margin-top: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                         <img src="ai.jpg" alt="AI Project 1" style="width: 100%; height: 80px; object-fit: cover; border-radius: 8px; transition: transform 0.3s ease;">
+                         <img src="ai.jpg" alt="AI Project 2" style="width: 100%; height: 80px; object-fit: cover; border-radius: 8px; transition: transform 0.3s ease;">
+                     </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="portfolio-section section">
+        <div class="container portfolio-container">
+            <div class="section-title">
+                <h2 data-en="Our Portfolio" data-ar="أعمالنا">Our Portfolio</h2>
+                <p data-en="Explore our extensive collection of innovative projects" data-ar="استكشف مجموعتنا الواسعة من المشاريع المبتكرة">Explore our extensive collection of innovative projects</p>
+            </div>
+            
+            <div class="portfolio-filters">
+                <button class="filter-btn active" data-filter="all" data-en="All Projects" data-ar="جميع المشاريع">All Projects</button>
+                <button class="filter-btn" data-filter="web" data-en="Web Development" data-ar="تطوير الويب">Web Development</button>
+                <button class="filter-btn" data-filter="mobile" data-en="Mobile Apps" data-ar="تطبيقات الهاتف">Mobile Apps</button>
+                <button class="filter-btn" data-filter="ai" data-en="AI Solutions" data-ar="حلول الذكاء الاصطناعي">AI Solutions</button>
+                <button class="filter-btn" data-filter="iot" data-en="IoT Systems" data-ar="أنظمة إنترنت الأشياء">IoT Systems</button>
+            </div>
+            
+            <div class="portfolio-grid">
+                <!-- Project 1 -->
+                <div class="portfolio-item" data-category="web" data-project="1">
+                    <img src="https://images.unsplash.com/photo-1547658719-da2b51169166?ixlib=rb-4.0.3&auto=format&fit=crop&w=1480&q=80" alt="Project 1" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <span class="category" data-en="Web Development" data-ar="تطوير الويب">Web Development</span>
+                        <h3 data-en="Enterprise CRM Platform" data-ar="منصة إدارة علاقات العملاء المؤسسية">Enterprise CRM Platform</h3>
+                        <p data-en="Custom customer relationship management system for a Fortune 500 company." data-ar="نظام إدارة علاقات العملاء المخصص لشركة Fortune 500.">Custom customer relationship management system for a Fortune 500 company.</p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">React</span>
+                            <span class="tech-tag">Node.js</span>
+                            <span class="tech-tag">MongoDB</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 2 -->
+                <div class="portfolio-item" data-category="mobile" data-project="2">
+                    <img src="https://images.unsplash.com/photo-1581276879432-15e50529f34b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80" alt="Project 2" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <span class="category" data-en="Mobile Application" data-ar="تطبيق الهاتف المحمول">Mobile Application</span>
+                        <h3 data-en="E-commerce Mobile App" data-ar="تطبيق التجارة الإلكترونية للهاتف">E-commerce Mobile App</h3>
+                        <p data-en="Cross-platform shopping application with AI-powered recommendations." data-ar="تطبيق تسوق متعدد المنصات مع توصيات مدعومة بالذكاء الاصطناعي.">Cross-platform shopping application with AI-powered recommendations.</p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">React Native</span>
+                            <span class="tech-tag">Firebase</span>
+                            <span class="tech-tag">Stripe API</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 3 -->
+                <div class="portfolio-item" data-category="ai" data-project="3">
+                    <img src="ai.jpg" alt="Project 3" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <span class="category" data-en="AI Solution" data-ar="حل الذكاء الاصطناعي">AI Solution</span>
+                        <h3 data-en="Healthcare AI Assistant" data-ar="مساعد الذكاء الاصطناعي للرعاية الصحية">Healthcare AI Assistant</h3>
+                        <p data-en="Natural language processing tool for medical diagnosis support." data-ar="أداة معالجة اللغة الطبيعية لدعم التشخيص الطبي.">Natural language processing tool for medical diagnosis support.</p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">TensorFlow</span>
+                            <span class="tech-tag">NLP</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 4 -->
+                <div class="portfolio-item" data-category="iot" data-project="4">
+                    <img src="https://images.unsplash.com/photo-1533750349088-cd871a92f312?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80" alt="Project 4" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <span class="category" data-en="IoT System" data-ar="نظام إنترنت الأشياء">IoT System</span>
+                        <h3 data-en="Smart Home Automation" data-ar="أتمتة المنزل الذكي">Smart Home Automation</h3>
+                        <p data-en="IoT ecosystem for residential energy management and security." data-ar="نظام إنترنت الأشياء لإدارة الطاقة السكنية والأمان.">IoT ecosystem for residential energy management and security.</p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">IoT</span>
+                            <span class="tech-tag">Raspberry Pi</span>
+                            <span class="tech-tag">AWS IoT</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 5 -->
+                <div class="portfolio-item" data-category="web" data-project="5">
+                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1415&q=80" alt="Project 5" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <span class="category" data-en="Web Development" data-ar="تطوير الويب">Web Development</span>
+                        <h3 data-en="Financial Dashboard" data-ar="لوحة المعلومات المالية">Financial Dashboard</h3>
+                        <p data-en="Real-time data visualization platform for investment analysis." data-ar="منصة تصور البيانات في الوقت الفعلي لتحليل الاستثمارات.">Real-time data visualization platform for investment analysis.</p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">Vue.js</span>
+                            <span class="tech-tag">D3.js</span>
+                            <span class="tech-tag">WebSockets</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 6 -->
+                <div class="portfolio-item" data-category="ai" data-project="6">
+                    <img src="ai.jpg" alt="Project 6" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <span class="category" data-en="AI Solution" data-ar="حل الذكاء الاصطناعي">AI Solution</span>
+                        <h3 data-en="Predictive Maintenance System" data-ar="نظام الصيانة التنبؤية">Predictive Maintenance System</h3>
+                        <p data-en="AI-powered system for predicting industrial equipment failures." data-ar="نظام مدعوم بالذكاء الاصطناعي للتنبؤ بأعطال المعدات الصناعية.">AI-powered system for predicting industrial equipment failures.</p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">Machine Learning</span>
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">Time Series</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 7 -->
+                <div class="portfolio-item" data-category="mobile" data-project="7">
+                    <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1374&q=80" alt="Project 7" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <span class="category" data-en="Mobile Application" data-ar="تطبيق الهاتف المحمول">Mobile Application</span>
+                        <h3 data-en="Fitness Tracking Platform" data-ar="منصة تتبع اللياقة البدنية">Fitness Tracking Platform</h3>
+                        <p data-en="Health and fitness app with wearable integration and AI coaching." data-ar="تطبيق الصحة واللياقة البدنية مع تكامل الأجهزة القابلة للارتداء والتدريب بالذكاء الاصطناعي.">Health and fitness app with wearable integration and AI coaching.</p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">Swift</span>
+                            <span class="tech-tag">Kotlin</span>
+                            <span class="tech-tag">HealthKit</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 8 -->
+                <div class="portfolio-item" data-category="web" data-project="8">
+                    <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80" alt="Project 8" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <span class="category" data-en="Web Development" data-ar="تطوير الويب">Web Development</span>
+                        <h3 data-en="Blockchain Supply Chain" data-ar="سلسلة التوريد بالبلوك تشين">Blockchain Supply Chain</h3>
+                        <p data-en="Decentralized tracking system for global logistics operations." data-ar="نظام تتبع لامركزي لعمليات اللوجستيات العالمية.">Decentralized tracking system for global logistics operations.</p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">Blockchain</span>
+                            <span class="tech-tag">Ethereum</span>
+                            <span class="tech-tag">Solidity</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 9 -->
+                <div class="portfolio-item" data-category="iot" data-project="9">
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80" alt="Project 9" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <span class="category" data-en="IoT System" data-ar="نظام إنترنت الأشياء">IoT System</span>
+                        <h3 data-en="Smart Agriculture Solution" data-ar="حل الزراعة الذكية">Smart Agriculture Solution</h3>
+                        <p data-en="IoT sensors and AI for precision farming and crop management. Monitors soil conditions, weather patterns, and crop health to optimize irrigation, fertilization, and harvesting schedules." data-ar="مستشعرات إنترنت الأشياء والذكاء الاصطناعي للزراعة الدقيقة وإدارة المحاصيل. تراقب ظروف التربة وأنماط الطقس وصحة المحاصيل لتحسين جداول الري والتسميد والحصاد.">IoT sensors and AI for precision farming and crop management. Monitors soil conditions, weather patterns, and crop health to optimize irrigation, fertilization, and harvesting schedules.</p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">IoT Sensors</span>
+                            <span class="tech-tag">Machine Learning</span>
+                            <span class="tech-tag">Cloud Analytics</span>
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">AWS</span>
+                            <span class="tech-tag">React Native</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 10 - New -->
+                <div class="portfolio-item" data-category="web" data-project="10">
+                    <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1471&q=80" alt="Project 10" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <span class="category" data-en="Web Development" data-ar="تطوير الويب">Web Development</span>
+                        <h3 data-en="E-Learning Platform" data-ar="منصة التعلم الإلكتروني">E-Learning Platform</h3>
+                        <p data-en="Interactive online learning system with video streaming, live classes, and comprehensive assessments." data-ar="نظام تعلم إلكتروني تفاعلي مع بث الفيديو والفصول الحية والتقييمات الشاملة.">Interactive online learning system with video streaming, live classes, and comprehensive assessments.</p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">React</span>
+                            <span class="tech-tag">Node.js</span>
+                            <span class="tech-tag">WebRTC</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 11 - New -->
+                <div class="portfolio-item" data-category="ai" data-project="11">
+                    <img src="ai.jpg" alt="Project 11" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <span class="category" data-en="AI Solution" data-ar="حل الذكاء الاصطناعي">AI Solution</span>
+                        <h3 data-en="Voice Recognition System" data-ar="نظام التعرف على الصوت">Voice Recognition System</h3>
+                        <p data-en="Advanced speech-to-text and voice command recognition platform." data-ar="منصة متقدمة للتعرف على الكلام والأوامر الصوتية.">Advanced speech-to-text and voice command recognition platform.</p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">TensorFlow</span>
+                            <span class="tech-tag">Speech Recognition</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 12 - New -->
+                <div class="portfolio-item" data-category="mobile" data-project="12">
+                    <img src="https://images.unsplash.com/photo-1611224923853-80b023f02d71?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80" alt="Project 12" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <span class="category" data-en="Mobile Application" data-ar="تطبيق الهاتف المحمول">Mobile Application</span>
+                        <h3 data-en="Social Media App" data-ar="تطبيق وسائل التواصل الاجتماعي">Social Media App</h3>
+                        <p data-en="Feature-rich social networking application with real-time messaging, photo sharing, and community features." data-ar="تطبيق شبكات اجتماعية غني بالميزات مع رسائل فورية ومشاركة الصور وميزات المجتمع.">Feature-rich social networking application with real-time messaging, photo sharing, and community features.</p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">React Native</span>
+                            <span class="tech-tag">Firebase</span>
+                            <span class="tech-tag">WebRTC</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 16 - Flutter App -->
+                <div class="portfolio-item" data-category="mobile" data-project="16">
+                    <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1374&q=80" alt="Project 16" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <span class="category">Flutter Application</span>
+                        <h3>E-commerce Flutter App</h3>
+                        <p>Cross-platform shopping application built with Flutter for seamless iOS and Android experience.</p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">Flutter</span>
+                            <span class="tech-tag">Dart</span>
+                            <span class="tech-tag">Firebase</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 13 - New -->
+                <div class="portfolio-item" data-category="web" data-project="13">
+                    <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80" alt="Project 13" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <span class="category" data-en="Web Development" data-ar="تطوير الويب">Web Development</span>
+                        <h3 data-en="E-commerce Website" data-ar="موقع التجارة الإلكترونية">E-commerce Website</h3>
+                        <p data-en="Full-featured online store with payment integration, inventory management, and customer relationship tools." data-ar="متجر إلكتروني كامل الميزات مع تكامل الدفع وإدارة المخزون وأدوات علاقات العملاء.">Full-featured online store with payment integration, inventory management, and customer relationship tools.</p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">Vue.js</span>
+                            <span class="tech-tag">Laravel</span>
+                            <span class="tech-tag">MySQL</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 14 - New -->
+                <div class="portfolio-item" data-category="iot" data-project="14">
+                    <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80" alt="Project 14" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <span class="category" data-en="IoT System" data-ar="نظام إنترنت الأشياء">IoT System</span>
+                        <h3 data-en="Industrial Monitoring" data-ar="المراقبة الصناعية">Industrial Monitoring</h3>
+                        <p data-en="Real-time industrial equipment monitoring and alert system." data-ar="نظام مراقبة وتنبيه المعدات الصناعية في الوقت الفعلي.">Real-time industrial equipment monitoring and alert system.</p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">IoT</span>
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">MQTT</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 15 - New -->
+                <div class="portfolio-item" data-category="ai" data-project="15">
+                    <img src="ai.jpg" alt="Project 15" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <span class="category" data-en="AI Solution" data-ar="حل الذكاء الاصطناعي">AI Solution</span>
+                        <h3 data-en="Image Recognition API" data-ar="API التعرف على الصور">Image Recognition API</h3>
+                        <p data-en="Cloud-based image analysis and object detection service." data-ar="خدمة تحليل الصور والكشف عن الكائنات المستندة إلى السحابة.">Cloud-based image analysis and object detection service.</p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">OpenCV</span>
+                            <span class="tech-tag">Flask</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+                         <!-- Additional Project Showcase -->
+             <div class="additional-projects" style="margin: 40px 0;">
+                 <h3 style="text-align: center; margin-bottom: 30px; color: var(--text-light);" data-en="More Success Stories" data-ar="المزيد من قصص النجاح">More Success Stories</h3>
+                 <div class="project-showcase" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px;">
+                     <div class="showcase-item" style="background: var(--card-bg); border-radius: 15px; padding: 25px; border: 1px solid var(--card-border); transition: var(--transition);">
+                         <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1415&q=80" alt="Financial Success" style="width: 100%; height: 180px; object-fit: cover; border-radius: 10px; margin-bottom: 20px;">
+                         <h4 style="color: var(--accent-blue); margin-bottom: 15px;" data-en="Financial Analytics Platform" data-ar="منصة التحليلات المالية">Financial Analytics Platform</h4>
+                         <p style="color: var(--text-gray); font-size: 0.9rem;" data-en="Real-time financial data analysis system that helped clients increase ROI by 35%." data-ar="نظام تحليل البيانات المالية في الوقت الفعلي الذي ساعد العملاء على زيادة العائد على الاستثمار بنسبة 35٪.">Real-time financial data analysis system that helped clients increase ROI by 35%.</p>
+                     </div>
+                     <div class="showcase-item" style="background: var(--card-bg); border-radius: 15px; padding: 25px; border: 1px solid var(--card-border); transition: var(--transition);">
+                         <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80" alt="Agriculture Innovation" style="width: 100%; height: 180px; object-fit: cover; border-radius: 10px; margin-bottom: 20px;">
+                         <h4 style="color: var(--accent-purple); margin-bottom: 15px;" data-en="Smart Agriculture Solution" data-ar="حل الزراعة الذكية">Smart Agriculture Solution</h4>
+                         <p style="color: var(--text-gray); font-size: 0.9rem;" data-en="IoT-powered farming system that reduced water usage by 40% and increased crop yield." data-ar="نظام الزراعة المدعوم بإنترنت الأشياء الذي قلل من استخدام المياه بنسبة 40٪ وزاد من محصول المحاصيل.">IoT-powered farming system that reduced water usage by 40% and increased crop yield.</p>
+                     </div>
+                     <div class="showcase-item" style="background: var(--card-bg); border-radius: 15px; padding: 25px; border: 1px solid var(--card-border); transition: var(--transition);">
+                         <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1374&q=80" alt="Health Tech" style="width: 100%; height: 180px; object-fit: cover; border-radius: 10px; margin-bottom: 20px;">
+                         <h4 style="color: var(--accent-pink); margin-bottom: 15px;" data-en="Healthcare Mobile App" data-ar="تطبيق الرعاية الصحية للهاتف المحمول">Healthcare Mobile App</h4>
+                         <p style="color: var(--text-gray); font-size: 0.9rem;" data-en="Patient management system that improved healthcare delivery efficiency by 50%." data-ar="نظام إدارة المرضى الذي حسّن كفاءة تقديم الرعاية الصحية بنسبة 50٪.">Patient management system that improved healthcare delivery efficiency by 50%.</p>
+                     </div>
+                 </div>
+             </div>
+             
+             <div class="project-stats">
+                 <div class="stat-card">
+                    <div class="stat-number">15+</div>
+                    <div class="stat-label" data-en="Projects Completed" data-ar="مشاريع مكتملة">Projects Completed</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">98%</div>
+                    <div class="stat-label" data-en="Client Satisfaction" data-ar="رضا العملاء">Client Satisfaction</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">100+</div>
+                    <div class="stat-label" data-en="Team Members" data-ar="أعضاء الفريق">Team Members</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us Section -->
+    <section id="features" class="section">
+        <div class="container">
+            <div class="section-title">
+                <h2 data-en="Why Choose TERRA" data-ar="لماذا تختار تيرا">Why Choose TERRA</h2>
+            </div>
+            <div class="features">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h3 data-en="Innovation First" data-ar="الابتكار أولاً">Innovation First</h3>
+                    <p data-en="We stay ahead of technology trends and leverage cutting-edge solutions to deliver exceptional results for your business." data-ar="نحن نتقدم على اتجاهات التكنولوجيا ونستفيد من الحلول المتطورة لتقديم نتائج استثنائية لعملك.">We stay ahead of technology trends and leverage cutting-edge solutions to deliver exceptional results for your business.</p>
+                    <div class="feature-image" style="margin-top: 20px;">
+                        <img src="ai.jpg" alt="Innovation" style="width: 100%; height: 120px; object-fit: cover; border-radius: 8px; transition: transform 0.3s ease;">
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 data-en="Expert Team" data-ar="فريق خبراء">Expert Team</h3>
+                    <p data-en="Our passionate technologists bring years of experience in software development, digital transformation, and enterprise solutions." data-ar="تقنيونا المتحمسون يجلبون سنوات من الخبرة في تطوير البرمجيات والتحول الرقمي والحلول المؤسسية.">Our passionate technologists bring years of experience in software development, digital transformation, and enterprise solutions.</p>
+                    <div class="feature-image" style="margin-top: 20px;">
+                        <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1471&q=80" alt="Expert Team" style="width: 100%; height: 120px; object-fit: cover; border-radius: 8px; transition: transform 0.3s ease;">
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <h3 data-en="Partnership Approach" data-ar="نهج الشراكة">Partnership Approach</h3>
+                    <p data-en="We work closely with you to understand your unique needs and deliver tailored solutions that drive real business value." data-ar="نحن نعمل عن كثب معك لفهم احتياجاتك الفريدة وتقديم حلول مخصصة تدفع قيمة عمل حقيقية.">We work closely with you to understand your unique needs and deliver tailored solutions that drive real business value.</p>
+                    <div class="feature-image" style="margin-top: 20px;">
+                        <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80" alt="Partnership" style="width: 100%; height: 120px; object-fit: cover; border-radius: 8px; transition: transform 0.3s ease;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+         <!-- Technology Showcase Section -->
+     <section class="section" style="background: var(--bg-darker);">
+         <div class="container">
+             <div class="section-title">
+                 <h2 data-en="Our Technology Stack" data-ar="مكدس التقنيات لدينا">Our Technology Stack</h2>
+             </div>
+             <div class="tech-showcase" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 25px; margin-bottom: 50px;">
+                 <div class="tech-item" style="text-align: center; background: var(--card-bg); border-radius: 15px; padding: 25px; border: 1px solid var(--card-border); transition: var(--transition);">
+                     <img src="https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1469&q=80" alt="Frontend Development" style="width: 100%; height: 150px; object-fit: cover; border-radius: 10px; margin-bottom: 20px;">
+                     <h4 style="color: var(--accent-blue); margin-bottom: 15px;" data-en="Frontend Excellence" data-ar="تميز الواجهة الأمامية">Frontend Excellence</h4>
+                     <p style="color: var(--text-gray); font-size: 0.9rem;" data-en="Modern React, Vue.js, and Angular applications with responsive design and optimal performance." data-ar="تطبيقات React وVue.js وAngular حديثة مع تصميم متجاوب وأداء مثالي.">Modern React, Vue.js, and Angular applications with responsive design and optimal performance.</p>
+                 </div>
+                 <div class="tech-item" style="text-align: center; background: var(--card-bg); border-radius: 15px; padding: 25px; border: 1px solid var(--card-border); transition: var(--transition);">
+                     <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80" alt="Backend Systems" style="width: 100%; height: 150px; object-fit: cover; border-radius: 10px; margin-bottom: 20px;">
+                     <h4 style="color: var(--accent-blue); margin-bottom: 15px;" data-en="Backend Systems" data-ar="أنظمة الخلفية">Backend Systems</h4>
+                     <p style="color: var(--text-gray); font-size: 0.9rem;" data-en="Scalable Node.js, Python, and Java backends with microservices architecture." data-ar="أنظمة خلفية قابلة للتوسع بـ Node.js وPython وJava مع هندسة الخدمات المصغرة.">Scalable Node.js, Python, and Java backends with microservices architecture.</p>
+                 </div>
+                 <div class="tech-item" style="text-align: center; background: var(--card-bg); border-radius: 15px; padding: 25px; border: 1px solid var(--card-border); transition: var(--transition);">
+                     <img src="https://images.unsplash.com/photo-1607252650355-f7fd0460ccdb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80" alt="Mobile Development" style="width: 100%; height: 150px; object-fit: cover; border-radius: 10px; margin-bottom: 20px;">
+                     <h4 style="color: var(--accent-purple); margin-bottom: 15px;" data-en="Mobile Development" data-ar="تطوير الهاتف المحمول">Mobile Development</h4>
+                     <p style="color: var(--text-gray); font-size: 0.9rem;" data-en="Flutter, React Native, and native iOS/Android development for cross-platform excellence." data-ar="Flutter وReact Native وتطوير iOS/Android الأصلي للتميز متعدد المنصات.">Flutter, React Native, and native iOS/Android development for cross-platform excellence.</p>
+                 </div>
+                 <div class="tech-item" style="text-align: center; background: var(--card-bg); border-radius: 15px; padding: 25px; border: 1px solid var(--card-border); transition: var(--transition);">
+                     <img src="ai.jpg" alt="AI & Machine Learning" style="width: 100%; height: 150px; object-fit: cover; border-radius: 10px; margin-bottom: 20px;">
+                     <h4 style="color: var(--accent-pink); margin-bottom: 15px;" data-en="AI & Machine Learning" data-ar="الذكاء الاصطناعي وتعلم الآلة">AI & Machine Learning</h4>
+                     <p style="color: var(--text-gray); font-size: 0.9rem;" data-en="TensorFlow, PyTorch, and custom ML models for intelligent automation." data-ar="TensorFlow وPyTorch ونماذج ML مخصصة للأتمتة الذكية.">TensorFlow, PyTorch, and custom ML models for intelligent automation.</p>
+                 </div>
+                 <div class="tech-item" style="text-align: center; background: var(--card-bg); border-radius: 15px; padding: 25px; border: 1px solid var(--card-border); transition: var(--transition);">
+                     <img src="https://images.unsplash.com/photo-1533750349088-cd871a92f312?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80" alt="Cloud & DevOps" style="width: 100%; height: 150px; object-fit: cover; border-radius: 10px; margin-bottom: 20px;">
+                     <h4 style="color: var(--accent-blue); margin-bottom: 15px;" data-en="Cloud & DevOps" data-ar="السحابة وDevOps">Cloud & DevOps</h4>
+                     <p style="color: var(--text-gray); font-size: 0.9rem;" data-en="AWS, Azure, Docker, and Kubernetes for scalable cloud solutions." data-ar="AWS وAzure وDocker وKubernetes لحلول سحابية قابلة للتوسع.">AWS, Azure, Docker, and Kubernetes for scalable cloud solutions.</p>
+                 </div>
+             </div>
+         </div>
+     </section>
+
+     <!-- Client Trust Section -->
+     <section class="section" style="background: var(--bg-darker);">
+        <div class="container">
+            <div class="section-title">
+                <h2 data-en="Trusted by Industry Leaders" data-ar="موثوق به من قادة الصناعة">Trusted by Industry Leaders</h2>
+            </div>
+            <div class="client-showcase" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-bottom: 50px;">
+                <div class="client-card" style="background: var(--card-bg); border-radius: 15px; padding: 30px; text-align: center; border: 1px solid var(--card-border); transition: var(--transition);">
+                    <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Client Success 1" style="width: 100%; height: 200px; object-fit: cover; border-radius: 10px; margin-bottom: 20px;">
+                    <h4 style="color: var(--accent-blue); margin-bottom: 15px;" data-en="Global Tech Solutions" data-ar="حلول التكنولوجيا العالمية">Global Tech Solutions</h4>
+                    <p style="color: var(--text-gray); margin-bottom: 20px;" data-en='"TERRA Technologies transformed our entire digital infrastructure, resulting in 40% efficiency improvement."' data-ar='"حولت تيرا تك البنية التحتية الرقمية بأكملها، مما أدى إلى تحسين الكفاءة بنسبة 40٪."'>"TERRA Technologies transformed our entire digital infrastructure, resulting in 40% efficiency improvement."</p>
+                    <div style="color: var(--accent-purple); font-weight: 600;" data-en="- Sarah Johnson, CTO" data-ar="- سارة جونسون، مدير التكنولوجيا التنفيذي">- Sarah Johnson, CTO</div>
+                </div>
+                <div class="client-card" style="background: var(--card-bg); border-radius: 15px; padding: 30px; text-align: center; border: 1px solid var(--card-border); transition: var(--transition);">
+                    <img src="https://images.unsplash.com/photo-1581276879432-15e50529f34b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80" alt="Client Success 2" style="width: 100%; height: 200px; object-fit: cover; border-radius: 10px; margin-bottom: 20px;">
+                    <h4 style="color: var(--accent-purple); margin-bottom: 15px;" data-en="Innovation Corp" data-ar="شركة الابتكار">Innovation Corp</h4>
+                    <p style="color: var(--text-gray); margin-bottom: 20px;" data-en='"Their AI solutions revolutionized our customer service, increasing satisfaction by 60%."' data-ar='"حلول الذكاء الاصطناعي لديهم أحدثت ثورة في خدمة العملاء لدينا، مما زاد الرضا بنسبة 60٪."'>"Their AI solutions revolutionized our customer service, increasing satisfaction by 60%."</p>
+                    <div style="color: var(--accent-blue); font-weight: 600;" data-en="- Michael Chen, CEO" data-ar="- مايكل تشين، الرئيس التنفيذي">- Michael Chen, CEO</div>
+                </div>
+                <div class="client-card" style="background: var(--card-bg); border-radius: 15px; padding: 30px; text-align: center; border: 1px solid var(--card-border); transition: var(--transition);">
+                    <img src="https://images.unsplash.com/photo-1533750349088-cd871a92f312?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80" alt="Client Success 3" style="width: 100%; height: 200px; object-fit: cover; border-radius: 10px; margin-bottom: 20px;">
+                    <h4 style="color: var(--accent-pink); margin-bottom: 15px;" data-en="Smart Industries" data-ar="الصناعات الذكية">Smart Industries</h4>
+                    <p style="color: var(--text-gray); margin-bottom: 20px;" data-en='"The IoT system they built saved us $2M annually in operational costs."' data-ar='"النظام الذي بنوه لإنترنت الأشياء وفر لنا 2 مليون دولار سنوياً في التكاليف التشغيلية."'>"The IoT system they built saved us $2M annually in operational costs."</p>
+                    <div style="color: var(--accent-purple); font-weight: 600;" data-en="- David Rodriguez, Operations Director" data-ar="- ديفيد رودريغيز، مدير العمليات">- David Rodriguez, Operations Director</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section">
+        <div class="container">
+            <div class="section-title">
+                <h2 data-en="Let's Build Together" data-ar="دعنا نبني معاً">Let's Build Together</h2>
+            </div>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h3 class="contact-title" data-en="Get In Touch" data-ar="تواصل معنا">Get In Touch</h3>
+                    <p data-en="Ready to transform your business with cutting-edge technology solutions? Reach out to our team to discuss your project requirements." data-ar="هل أنت مستعد لتحويل عملك بحلول تقنية متطورة؟ تواصل مع فريقنا لمناقشة متطلبات مشروعك.">Ready to transform your business with cutting-edge technology solutions? Reach out to our team to discuss your project requirements.</p>
+                    
+                    <div class="contact-logo">
+                        <img src="logo.png" alt="Terra Tech Logo" style="width: 80px; height: 80px; margin-bottom: 15px; border-radius: 10px;">
+                        <h3>Terra Tech</h3>
+                    </div>
+                    
+                                         <div class="office-showcase" style="margin: 40px 0; padding: 30px; background: var(--card-bg); border-radius: 15px; border: 1px solid var(--card-border);">
+                         <h4 style="text-align: center; margin-bottom: 30px; color: var(--accent-blue);" data-en="Our Work Environment" data-ar="بيئة العمل لدينا">Our Work Environment</h4>
+                         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+                             <div style="text-align: center;">
+                                 <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1469&q=80" alt="Modern Office" style="width: 100%; height: 160px; object-fit: cover; border-radius: 10px; margin-bottom: 15px;">
+                                 <h5 style="color: var(--accent-purple); margin-bottom: 10px;" data-en="Modern Workspace" data-ar="مساحة عمل حديثة">Modern Workspace</h5>
+                                 <p style="color: var(--text-gray); font-size: 0.9rem;" data-en="State-of-the-art development environment with cutting-edge equipment." data-ar="بيئة تطوير متطورة مع معدات حديثة.">State-of-the-art development environment with cutting-edge equipment.</p>
+                             </div>
+                             <div style="text-align: center;">
+                                 <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1471&q=80" alt="Team Collaboration" style="width: 100%; height: 160px; object-fit: cover; border-radius: 10px; margin-bottom: 15px;">
+                                 <h5 style="color: var(--accent-pink); margin-bottom: 10px;" data-en="Team Collaboration" data-ar="تعاون الفريق">Team Collaboration</h5>
+                                 <p style="color: var(--text-gray); font-size: 0.9rem;" data-en="Collaborative spaces designed for creativity and innovation." data-ar="مساحات تعاونية مصممة للإبداع والابتكار.">Collaborative spaces designed for creativity and innovation.</p>
+                             </div>
+                             <div style="text-align: center;">
+                                 <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80" alt="Innovation Hub" style="width: 100%; height: 160px; object-fit: cover; border-radius: 10px; margin-bottom: 15px;">
+                                 <h5 style="color: var(--accent-blue); margin-bottom: 10px;" data-en="Innovation Hub" data-ar="مركز الابتكار">Innovation Hub</h5>
+                                 <p style="color: var(--text-gray); font-size: 0.9rem;" data-en="Dedicated areas for brainstorming and creative problem-solving." data-ar="مناطق مخصصة للعصف الذهني وحل المشاكل الإبداعي.">Dedicated areas for brainstorming and creative problem-solving.</p>
+                             </div>
+                         </div>
+                     </div>
+                     
+                     <div class="contact-details">
+                         <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <h4 data-en="Location" data-ar="الموقع">Location</h4>
+                            <p data-en="Virtual Office<br>ZIP: 31733" data-ar="مكتب افتراضي<br>الرمز البريدي: 31733">Virtual Office<br>ZIP: 31733</p>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-phone-alt"></i>
+                            </div>
+                            <h4 data-en="Phone" data-ar="الهاتف">Phone</h4>
+                            <p>+20 10 18579368</p>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <h4 data-en="Email" data-ar="البريد الإلكتروني">Email</h4>
+                            <p>theterratech@gmail.com<br>terrattsupp0rt@gmail.com</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <div class="footer-logo">Terra Tech</div>
+                    <p data-en="TERRA Technologies delivers innovative digital solutions that help businesses transform and grow through cutting-edge technology." data-ar="تقدم تيرا تك حلول رقمية مبتكرة تساعد الشركات على التحول والنمو من خلال التكنولوجيا المتطورة.">TERRA Technologies delivers innovative digital solutions that help businesses transform and grow through cutting-edge technology.</p>
+                </div>
+                <div class="footer-links">
+                    <h4 data-en="Quick Links" data-ar="روابط سريعة">Quick Links</h4>
+                    <ul>
+                        <li><a href="#hero" data-en="Home" data-ar="الرئيسية">Home</a></li>
+                        <li><a href="#about" data-en="About Us" data-ar="من نحن">About Us</a></li>
+                        <li><a href="#services" data-en="Services" data-ar="خدماتنا">Services</a></li>
+                        <li><a href="#portfolio" data-en="Portfolio" data-ar="أعمالنا">Portfolio</a></li>
+                        <li><a href="#contact" data-en="Contact" data-ar="اتصل بنا">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4 data-en="Our Services" data-ar="خدماتنا">Our Services</h4>
+                    <ul>
+                        <li><a href="#services" data-en="Website Development" data-ar="تطوير المواقع الإلكترونية">Website Development</a></li>
+                        <li><a href="#services" data-en="Mobile Applications" data-ar="تطبيقات الهاتف المحمول">Mobile Applications</a></li>
+                        <li><a href="#services" data-en="Flutter Development" data-ar="تطوير Flutter">Flutter Development</a></li>
+                        <li><a href="#services" data-en="Software Systems" data-ar="أنظمة البرمجيات">Software Systems</a></li>
+                        <li><a href="#services" data-en="AI Tools & Models" data-ar="أدوات ونماذج الذكاء الاصطناعي">AI Tools & Models</a></li>
+                        <li><a href="#services" data-en="Cloud Solutions" data-ar="الحلول السحابية">Cloud Solutions</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4 data-en="Contact Info" data-ar="معلومات الاتصال">Contact Info</h4>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> <span data-en="Virtual Office" data-ar="مكتب افتراضي">Virtual Office</span></li>
+                        <li><i class="fas fa-phone"></i> +20 10 18579368</li>
+                        <li><i class="fas fa-envelope"></i> theterratech@gmail.com</li>
+                    </ul>
+                </div>
+            </div>
+                          <div class="footer-slogan" style="text-align: center; margin-bottom: 20px; padding: 20px; background: linear-gradient(135deg, rgba(185, 103, 255, 0.1), rgba(255, 107, 139, 0.1)); border: 1px solid rgba(185, 103, 255, 0.3); border-radius: 15px;">
+                            <p style="margin: 0; font-size: 1.1rem; color: var(--accent-purple); font-weight: 600; text-align: center;" data-en='✨ "½ Ideas, ²⁄₂ Execution" — Where visions take shape' data-ar='✨ "½ أفكار،²⁄₂ تنفيذ" — حيث تتشكل الرؤى'>
+                                “½ Ideas, ²⁄₂ Execution — Where visions take shape”
+                </p>
+              </div>
+              <div class="copyright">
+                <p>&copy; 2025 Terra Tech. All Rights Reserved.</p>
+              </div>
+        </div>
+    </footer>
+
+    <!-- Project Detail Modal -->
+    <div id="projectModal" class="project-modal">
+        <div class="modal-content">
+            <span class="modal-close" data-en="Close" data-ar="إغلاق">&times;</span>
+            <div class="modal-header">
+                <img id="modalImg" src="" alt="Project Image">
+            </div>
+            <div class="modal-body">
+                <span id="modalCategory" class="modal-category">Web Development</span>
+                <h2 id="modalTitle" class="modal-title">Project Title</h2>
+                <p id="modalDescription" class="modal-description">Project description will appear here.</p>
+                
+                <div class="modal-grid">
+                    <div class="modal-section">
+                        <h3 data-en="Tech Stack" data-ar="مكدس التقنيات">Tech Stack</h3>
+                        <div id="modalTech" class="modal-tech">
+                            <!-- Tech tags will be added here -->
+                        </div>
+                    </div>
+                    <div class="modal-section">
+                        <h3 data-en="Key Features" data-ar="الميزات الرئيسية">Key Features</h3>
+                        <ul id="modalFeatures" class="modal-features">
+                            <!-- Features will be added here -->
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="modal-footer">
+                    <div class="client-testimonial">
+                        <p data-en='"Terra Tech delivered beyond our expectations. Their technical expertise is unmatched."' data-ar='"سلمت تيرا تك ما يتجاوز توقعاتنا. خبرتهم التقنية لا مثيل لها."'>"Terra Tech delivered beyond our expectations. Their technical expertise is unmatched."</p>
+                        <p><strong data-en="John Smith" data-ar="جون سميث">John Smith</strong>, <span data-en="CEO at TechCorp" data-ar="الرئيس التنفيذي في تيك كورب">CEO at TechCorp</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // Portfolio filtering
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const portfolioItems = document.querySelectorAll('.portfolio-item');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active class from all buttons
+                filterBtns.forEach(b => b.classList.remove('active'));
+                // Add active class to clicked button
+                btn.classList.add('active');
+                
+                const filter = btn.getAttribute('data-filter');
+                
+                portfolioItems.forEach(item => {
+                    if (filter === 'all' || item.getAttribute('data-category') === filter) {
+                        item.style.display = 'block';
+                        // Use requestAnimationFrame for smoother animations
+                        requestAnimationFrame(() => {
+                            item.style.opacity = '1';
+                            item.style.transform = 'translateY(0)';
+                        });
+                    } else {
+                        item.style.opacity = '0';
+                        item.style.transform = 'translateY(20px)';
+                        setTimeout(() => {
+                            item.style.display = 'none';
+                        }, 400);
+                    }
+                });
+            });
+        });
+
+        // Smooth scrolling for anchor links with error handling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const href = this.getAttribute('href');
+                if (href === '#') return; // Skip empty anchors
+                
+                const target = document.querySelector(href);
+                if (target) {
+                    try {
+                        window.scrollTo({
+                            top: target.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                        
+                        // Close mobile menu if open
+                        if (navLinks.classList.contains('active')) {
+                            navLinks.classList.remove('active');
+                        }
+                    } catch (error) {
+                        console.warn('Smooth scrolling not supported, using fallback');
+                        // Fallback for browsers that don't support smooth scrolling
+                        window.scrollTo(0, target.offsetTop - 80);
+                    }
+                } else {
+                    console.warn(`Target element not found: ${href}`);
+                }
+            });
+        });
+
+        // Enhanced Animation on scroll
+        const animateOnScroll = () => {
+            const elements = document.querySelectorAll('.service-card, .portfolio-item, .feature-card, .section-title h2, .about-text, .about-image, .contact-info, .trust-item, .client-card, .trust-images, .tech-item, .showcase-item');
+            
+            elements.forEach(el => {
+                const elementTop = el.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (elementTop < windowHeight - 100) {
+                    if (el.classList.contains('trust-item')) {
+                        el.style.animation = 'fadeUp 0.8s forwards';
+                    } else if (el.classList.contains('client-card')) {
+                        el.style.animation = 'fadeUp 0.8s forwards';
+                    } else {
+                        el.style.animation = 'fadeUp 0.8s forwards';
+                    }
+                }
+            });
+        };
+
+        // Add parallax effect to hero section
+        const parallaxEffect = () => {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero');
+            if (hero) {
+                hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+            }
+        };
+
+        // Add floating animation to shapes
+        const animateShapes = () => {
+            const shapes = document.querySelectorAll('.shape');
+            shapes.forEach((shape, index) => {
+                shape.style.animationDelay = `${index * 2}s`;
+            });
+        };
+
+        window.addEventListener('scroll', animateOnScroll);
+        window.addEventListener('scroll', parallaxEffect);
+        window.addEventListener('load', animateOnScroll);
+        window.addEventListener('load', animateShapes);
+
+        // Project Detail Modal
+        const modal = document.getElementById('projectModal');
+        const closeModal = document.querySelector('.modal-close');
+        const portfolioGrid = document.querySelector('.portfolio-grid');
+        
+        // Project data for modals - Complete data for all projects with Arabic support
+        const projectData = {
+            1: {
+                title: {
+                    en: "Enterprise CRM Platform",
+                    ar: "منصة إدارة علاقات العملاء المؤسسية"
+                },
+                category: {
+                    en: "Web Development",
+                    ar: "تطوير الويب"
+                },
+                description: {
+                    en: "Custom customer relationship management system developed for a Fortune 500 company. This platform integrates sales, marketing, and customer service functions into a single, unified interface. Features include lead tracking, opportunity management, customer segmentation, and comprehensive analytics dashboards.",
+                    ar: "نظام إدارة علاقات العملاء المخصص المطور لشركة Fortune 500. تجمع هذه المنصة وظائف المبيعات والتسويق وخدمة العملاء في واجهة موحدة واحدة. تشمل الميزات تتبع العملاء المحتملين وإدارة الفرص وتجزئة العملاء ولوحات تحليلات شاملة."
+                },
+                tech: ["React", "Node.js", "MongoDB", "Express", "Redux", "JWT Authentication"],
+                features: {
+                    en: [
+                        "Real-time analytics dashboard",
+                        "Automated lead scoring system",
+                        "Integrated email marketing",
+                        "Custom reporting engine",
+                        "Mobile-responsive design",
+                        "Role-based access control"
+                    ],
+                    ar: [
+                        "لوحة تحليلات في الوقت الفعلي",
+                        "نظام تقييم العملاء المحتملين الآلي",
+                        "التسويق عبر البريد الإلكتروني المتكامل",
+                        "محرك التقارير المخصص",
+                        "تصميم متجاوب للهاتف المحمول",
+                        "التحكم في الوصول القائم على الأدوار"
+                    ]
+                },
+                image: "https://images.unsplash.com/photo-1547658719-da2b51169166?ixlib=rb-4.0.3&auto=format&fit=crop&w=1480&q=80"
+            },
+            2: {
+                title: {
+                    en: "E-commerce Mobile App",
+                    ar: "تطبيق التجارة الإلكترونية للهاتف المحمول"
+                },
+                category: {
+                    en: "Mobile Application",
+                    ar: "تطبيق الهاتف المحمول"
+                },
+                description: {
+                    en: "Cross-platform shopping application with AI-powered recommendations for a leading retail brand. The app features personalized shopping experiences, one-click checkout, augmented reality product previews, and seamless integration with loyalty programs.",
+                    ar: "تطبيق تسوق متعدد المنصات مع توصيات مدعومة بالذكاء الاصطناعي لعلامة تجارية رائدة في التجزئة. يتميز التطبيق بتجارب تسوق مخصصة ودفع بنقرة واحدة ومعاينة المنتجات بالواقع المعزز وتكامل سلس مع برامج الولاء."
+                },
+                tech: ["React Native", "Firebase", "Stripe API", "Redux", "Google Cloud Functions", "TensorFlow.js"],
+                features: {
+                    en: [
+                        "AI-powered product recommendations",
+                        "Augmented reality try-on",
+                        "One-click checkout",
+                        "Personalized promotions",
+                        "Wishlist and favorites",
+                        "Real-time inventory tracking"
+                    ],
+                    ar: [
+                        "توصيات المنتجات المدعومة بالذكاء الاصطناعي",
+                        "تجربة الواقع المعزز",
+                        "الدفع بنقرة واحدة",
+                        "العروض المخصصة",
+                        "قائمة الأمنيات والمفضلة",
+                        "تتبع المخزون في الوقت الفعلي"
+                    ]
+                },
+                image: "https://images.unsplash.com/photo-1581276879432-15e50529f34b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80"
+            },
+            3: {
+                title: {
+                    en: "Healthcare AI Assistant",
+                    ar: "مساعد الذكاء الاصطناعي للرعاية الصحية"
+                },
+                category: {
+                    en: "AI Solution",
+                    ar: "حل الذكاء الاصطناعي"
+                },
+                description: {
+                    en: "Natural language processing tool for medical diagnosis support. This AI-powered assistant helps healthcare professionals by analyzing patient symptoms, medical history, and test results to suggest potential diagnoses and treatment options with supporting research.",
+                    ar: "أداة معالجة اللغة الطبيعية لدعم التشخيص الطبي. يساعد هذا المساعد المدعوم بالذكاء الاصطناعي المهنيين الصحيين من خلال تحليل أعراض المريض والتاريخ الطبي ونتائج الاختبارات لاقتراح تشخيصات محتملة وخيارات علاج مع أبحاث داعمة."
+                },
+                tech: ["Python", "TensorFlow", "NLP", "PyTorch", "Flask", "MongoDB"],
+                features: {
+                    en: [
+                        "Symptom analysis engine",
+                        "Medical literature integration",
+                        "Patient history analysis",
+                        "Diagnostic probability scoring",
+                        "Treatment recommendation",
+                        "HIPAA compliant data handling"
+                    ],
+                    ar: [
+                        "محرك تحليل الأعراض",
+                        "تكامل الأدبيات الطبية",
+                        "تحليل التاريخ المرضي",
+                        "تقييم احتمالية التشخيص",
+                        "توصية العلاج",
+                        "معالجة البيانات المتوافقة مع HIPAA"
+                    ]
+                },
+                image: "ai.jpg"
+            },
+            4: {
+                title: {
+                    en: "Smart Home Automation",
+                    ar: "أتمتة المنزل الذكي"
+                },
+                category: {
+                    en: "IoT System",
+                    ar: "نظام إنترنت الأشياء"
+                },
+                description: {
+                    en: "Comprehensive IoT ecosystem for residential energy management and security. The system integrates smart sensors, automated controls, and AI-powered optimization to create an intelligent home environment that adapts to user preferences and maximizes efficiency.",
+                    ar: "نظام إنترنت الأشياء شامل لإدارة الطاقة السكنية والأمان. يدمج النظام أجهزة استشعار ذكية وضوابط آلية وتحسين مدعوم بالذكاء الاصطناعي لإنشاء بيئة منزلية ذكية تتكيف مع تفضيلات المستخدم وتعظم الكفاءة."
+                },
+                tech: ["IoT", "Raspberry Pi", "AWS IoT", "Python", "MQTT", "React Native"],
+                features: {
+                    en: [
+                        "Energy consumption monitoring",
+                        "Automated climate control",
+                        "Security system integration",
+                        "Mobile app control",
+                        "AI-powered optimization",
+                        "Real-time alerts and notifications"
+                    ],
+                    ar: [
+                        "مراقبة استهلاك الطاقة",
+                        "التحكم الآلي في المناخ",
+                        "تكامل نظام الأمان",
+                        "التحكم عبر تطبيق الهاتف",
+                        "التحسين المدعوم بالذكاء الاصطناعي",
+                        "تنبيهات وإشعارات في الوقت الفعلي"
+                    ]
+                },
+                image: "https://images.unsplash.com/photo-1533750349088-cd871a92f312?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80"
+            },
+            5: {
+                title: {
+                    en: "Financial Dashboard",
+                    ar: "لوحة المعلومات المالية"
+                },
+                category: {
+                    en: "Web Development",
+                    ar: "تطوير الويب"
+                },
+                description: {
+                    en: "Real-time data visualization platform for investment analysis and portfolio management. Features interactive charts, real-time market data, portfolio tracking, and advanced analytics tools to help investors make informed decisions.",
+                    ar: "منصة تصور البيانات في الوقت الفعلي لتحليل الاستثمارات وإدارة المحافظ. تتميز بخطط تفاعلية وبيانات السوق في الوقت الفعلي وتتبع المحافظ وأدوات تحليل متقدمة لمساعدة المستثمرين على اتخاذ قرارات مدروسة."
+                },
+                tech: ["Vue.js", "D3.js", "WebSockets", "Node.js", "PostgreSQL", "Redis"],
+                features: {
+                    en: [
+                        "Real-time market data",
+                        "Interactive portfolio charts",
+                        "Risk assessment tools",
+                        "Performance analytics",
+                        "Custom alerts and notifications",
+                        "Multi-currency support"
+                    ],
+                    ar: [
+                        "بيانات السوق في الوقت الفعلي",
+                        "خطط المحافظ التفاعلية",
+                        "أدوات تقييم المخاطر",
+                        "تحليل الأداء",
+                        "تنبيهات وإشعارات مخصصة",
+                        "دعم العملات المتعددة"
+                    ]
+                },
+                image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1415&q=80"
+            },
+            6: {
+                title: {
+                    en: "Predictive Maintenance System",
+                    ar: "نظام الصيانة التنبؤية"
+                },
+                category: {
+                    en: "AI Solution",
+                    ar: "حل الذكاء الاصطناعي"
+                },
+                description: {
+                    en: "AI-powered system for predicting industrial equipment failures and optimizing maintenance schedules. Uses machine learning algorithms to analyze sensor data and predict potential issues before they cause downtime.",
+                    ar: "نظام مدعوم بالذكاء الاصطناعي للتنبؤ بأعطال المعدات الصناعية وتحسين جداول الصيانة. يستخدم خوارزميات تعلم الآلة لتحليل بيانات المستشعرات والتنبؤ بالمشاكل المحتملة قبل أن تسبب توقف العمل."
+                },
+                tech: ["Machine Learning", "Python", "Time Series", "TensorFlow", "Apache Kafka", "Docker"],
+                features: {
+                    en: [
+                        "Equipment failure prediction",
+                        "Maintenance optimization",
+                        "Real-time monitoring",
+                        "Predictive analytics",
+                        "Automated reporting",
+                        "Integration with existing systems"
+                    ],
+                    ar: [
+                        "التنبؤ بأعطال المعدات",
+                        "تحسين الصيانة",
+                        "المراقبة في الوقت الفعلي",
+                        "التحليلات التنبؤية",
+                        "التقارير الآلية",
+                        "التكامل مع الأنظمة الموجودة"
+                    ]
+                },
+                image: "ai.jpg"
+            },
+            7: {
+                title: {
+                    en: "Fitness Tracking Platform",
+                    ar: "منصة تتبع اللياقة البدنية"
+                },
+                category: {
+                    en: "Mobile Application",
+                    ar: "تطبيق الهاتف المحمول"
+                },
+                description: {
+                    en: "Comprehensive health and fitness app with wearable integration and AI coaching. Tracks workouts, nutrition, sleep patterns, and provides personalized recommendations to help users achieve their fitness goals.",
+                    ar: "تطبيق شامل للصحة واللياقة البدنية مع تكامل الأجهزة القابلة للارتداء والتدريب بالذكاء الاصطناعي. يتتبع التمارين والتغذية وأنماط النوم ويقدم توصيات مخصصة لمساعدة المستخدمين على تحقيق أهدافهم في اللياقة البدنية."
+                },
+                tech: ["Swift", "Kotlin", "HealthKit", "Google Fit", "Firebase", "TensorFlow Lite"],
+                features: {
+                    en: [
+                        "Workout tracking and analysis",
+                        "Wearable device integration",
+                        "AI-powered coaching",
+                        "Nutrition tracking",
+                        "Sleep pattern analysis",
+                        "Social features and challenges"
+                    ],
+                    ar: [
+                        "تتبع وتحليل التمارين",
+                        "تكامل الأجهزة القابلة للارتداء",
+                        "التدريب المدعوم بالذكاء الاصطناعي",
+                        "تتبع التغذية",
+                        "تحليل أنماط النوم",
+                        "الميزات الاجتماعية والتحديات"
+                    ]
+                },
+                image: "https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1374&q=80"
+            },
+            8: {
+                title: {
+                    en: "Blockchain Supply Chain",
+                    ar: "سلسلة التوريد بالبلوك تشين"
+                },
+                category: {
+                    en: "Web Development",
+                    ar: "تطوير الويب"
+                },
+                description: {
+                    en: "Decentralized tracking system for global logistics operations using blockchain technology. Provides transparent, tamper-proof tracking of goods from manufacturer to end consumer with real-time visibility.",
+                    ar: "نظام تتبع لامركزي لعمليات اللوجستيات العالمية باستخدام تقنية البلوك تشين. يوفر تتبعاً شفافاً ومقاوماً للتلاعب للسلع من المصنع إلى المستهلك النهائي مع رؤية في الوقت الفعلي."
+                },
+                tech: ["Blockchain", "Ethereum", "Solidity", "React", "Node.js", "IPFS"],
+                features: {
+                    en: [
+                        "End-to-end traceability",
+                        "Smart contract automation",
+                        "Real-time tracking",
+                        "Transparent documentation",
+                        "Automated compliance checks",
+                        "Multi-stakeholder access"
+                    ],
+                    ar: [
+                        "التتبع من البداية إلى النهاية",
+                        "أتمتة العقود الذكية",
+                        "التتبع في الوقت الفعلي",
+                        "توثيق شفاف",
+                        "فحوصات الامتثال الآلية",
+                        "وصول أصحاب المصلحة المتعددين"
+                    ]
+                },
+                image: "https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80"
+            },
+            9: {
+                title: {
+                    en: "Smart Agriculture Solution",
+                    ar: "حل الزراعة الذكية"
+                },
+                category: {
+                    en: "IoT System",
+                    ar: "نظام إنترنت الأشياء"
+                },
+                description: {
+                    en: "IoT sensors and AI for precision farming and crop management. Monitors soil conditions, weather patterns, and crop health to optimize irrigation, fertilization, and harvesting schedules.",
+                    ar: "مستشعرات إنترنت الأشياء والذكاء الاصطناعي للزراعة الدقيقة وإدارة المحاصيل. تراقب ظروف التربة وأنماط الطقس وصحة المحاصيل لتحسين جداول الري والتسميد والحصاد."
+                },
+                tech: ["IoT Sensors", "Machine Learning", "Cloud Analytics", "Python", "AWS", "React Native"],
+                features: {
+                    en: [
+                        "Soil monitoring sensors",
+                        "Weather prediction",
+                        "Crop health analysis",
+                        "Automated irrigation",
+                        "Yield optimization",
+                        "Mobile farm management"
+                    ],
+                    ar: [
+                        "مستشعرات مراقبة التربة",
+                        "التنبؤ بالطقس",
+                        "تحليل صحة المحاصيل",
+                        "الري الآلي",
+                        "تحسين المحصول",
+                        "إدارة المزرعة عبر الهاتف المحمول"
+                    ]
+                },
+                image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80"
+            },
+            10: {
+                title: {
+                    en: "E-Learning Platform",
+                    ar: "منصة التعلم الإلكتروني"
+                },
+                category: {
+                    en: "Web Development",
+                    ar: "تطوير الويب"
+                },
+                description: {
+                    en: "Interactive online learning system with video streaming, live classes, and comprehensive assessments. Features include course management, student progress tracking, and interactive learning tools.",
+                    ar: "نظام تعلم إلكتروني تفاعلي مع بث الفيديو والفصول الحية والتقييمات الشاملة. تشمل الميزات إدارة الدورات وتتبع تقدم الطلاب وأدوات التعلم التفاعلية."
+                },
+                tech: ["React", "Node.js", "WebRTC", "MongoDB", "Socket.io", "AWS S3"],
+                features: {
+                    en: [
+                        "Live video streaming",
+                        "Interactive whiteboard",
+                        "Course management system",
+                        "Student progress tracking",
+                        "Assessment tools",
+                        "Mobile-responsive design"
+                    ],
+                    ar: [
+                        "بث الفيديو المباشر",
+                        "السبورة التفاعلية",
+                        "نظام إدارة الدورات",
+                        "تتبع تقدم الطلاب",
+                        "أدوات التقييم",
+                        "تصميم متجاوب للهاتف المحمول"
+                    ]
+                },
+                image: "https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1374&q=80"
+            },
+            11: {
+                title: {
+                    en: "Voice Recognition System",
+                    ar: "نظام التعرف على الصوت"
+                },
+                category: {
+                    en: "AI Solution",
+                    ar: "حل الذكاء الاصطناعي"
+                },
+                description: {
+                    en: "Advanced speech-to-text and voice command recognition platform. Uses deep learning algorithms to provide accurate voice transcription and natural language processing capabilities.",
+                    ar: "منصة متقدمة للتعرف على الكلام والأوامر الصوتية. تستخدم خوارزميات التعلم العميق لتوفير نسخ صوتي دقيق وقدرات معالجة اللغة الطبيعية."
+                },
+                tech: ["Python", "TensorFlow", "Speech Recognition", "NLP", "Flask", "Redis"],
+                features: {
+                    en: [
+                        "Real-time speech recognition",
+                        "Multi-language support",
+                        "Voice command processing",
+                        "Noise cancellation",
+                        "Custom vocabulary training",
+                        "API integration"
+                    ],
+                    ar: [
+                        "التعرف على الكلام في الوقت الفعلي",
+                        "دعم اللغات المتعددة",
+                        "معالجة الأوامر الصوتية",
+                        "إلغاء الضوضاء",
+                        "تدريب المفردات المخصصة",
+                        "تكامل API"
+                    ]
+                },
+                image: "ai.jpg"
+            },
+            12: {
+                title: {
+                    en: "Social Media App",
+                    ar: "تطبيق وسائل التواصل الاجتماعي"
+                },
+                category: {
+                    en: "Mobile Application",
+                    ar: "تطبيق الهاتف المحمول"
+                },
+                description: {
+                    en: "Feature-rich social networking application with real-time messaging, photo sharing, and community features. Built for both iOS and Android platforms with seamless cross-platform experience.",
+                    ar: "تطبيق شبكات اجتماعية غني بالميزات مع رسائل فورية ومشاركة الصور وميزات المجتمع. مبني لمنصات iOS وAndroid مع تجربة متعددة المنصات سلسة."
+                },
+                tech: ["React Native", "Firebase", "WebRTC", "Redux", "Google Cloud", "Socket.io"],
+                features: {
+                    en: [
+                        "Real-time messaging",
+                        "Photo and video sharing",
+                        "User profiles and stories",
+                        "Community groups",
+                        "Push notifications",
+                        "Privacy controls"
+                    ],
+                    ar: [
+                        "الرسائل الفورية",
+                        "مشاركة الصور والفيديو",
+                        "الملفات الشخصية والقصص",
+                        "مجموعات المجتمع",
+                        "الإشعارات الفورية",
+                        "ضوابط الخصوصية"
+                    ]
+                },
+                image: "https://images.unsplash.com/photo-1581276879432-15e50529f34b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80"
+            },
+            13: {
+                title: {
+                    en: "E-commerce Website",
+                    ar: "موقع التجارة الإلكترونية"
+                },
+                category: {
+                    en: "Web Development",
+                    ar: "تطوير الويب"
+                },
+                description: {
+                    en: "Full-featured online store with payment integration, inventory management, and customer relationship tools. Includes admin panel, analytics dashboard, and mobile-responsive design.",
+                    ar: "متجر إلكتروني كامل الميزات مع تكامل الدفع وإدارة المخزون وأدوات علاقات العملاء. يتضمن لوحة إدارية ولوحة تحليلات وتصميم متجاوب للهاتف المحمول."
+                },
+                tech: ["Vue.js", "Laravel", "MySQL", "Stripe API", "Redis", "AWS"],
+                features: {
+                    en: [
+                        "Product catalog management",
+                        "Shopping cart system",
+                        "Payment gateway integration",
+                        "Order management",
+                        "Customer accounts",
+                        "Analytics dashboard"
+                    ],
+                    ar: [
+                        "إدارة كتالوج المنتجات",
+                        "نظام عربة التسوق",
+                        "تكامل بوابة الدفع",
+                        "إدارة الطلبات",
+                        "حسابات العملاء",
+                        "لوحة التحليلات"
+                    ]
+                },
+                image: "https://images.unsplash.com/photo-1547658719-da2b51169166?ixlib=rb-4.0.3&auto=format&fit=crop&w=1480&q=80"
+            },
+            14: {
+                title: {
+                    en: "Industrial Monitoring",
+                    ar: "المراقبة الصناعية"
+                },
+                category: {
+                    en: "IoT System",
+                    ar: "نظام إنترنت الأشياء"
+                },
+                description: {
+                    en: "Real-time industrial equipment monitoring and alert system. Provides comprehensive monitoring of manufacturing processes, equipment health, and production efficiency.",
+                    ar: "نظام مراقبة وتنبيه المعدات الصناعية في الوقت الفعلي. يوفر مراقبة شاملة لعمليات التصنيع وصحة المعدات وكفاءة الإنتاج."
+                },
+                tech: ["IoT", "Python", "MQTT", "InfluxDB", "Grafana", "Docker"],
+                features: {
+                    en: [
+                        "Real-time equipment monitoring",
+                        "Predictive maintenance alerts",
+                        "Performance analytics",
+                        "Custom dashboards",
+                        "Mobile app integration",
+                        "Historical data analysis"
+                    ],
+                    ar: [
+                        "مراقبة المعدات في الوقت الفعلي",
+                        "تنبيهات الصيانة التنبؤية",
+                        "تحليل الأداء",
+                        "لوحات معلومات مخصصة",
+                        "تكامل تطبيق الهاتف المحمول",
+                        "تحليل البيانات التاريخية"
+                    ]
+                },
+                image: "https://images.unsplash.com/photo-1533750349088-cd871a92f312?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80"
+            },
+            15: {
+                title: {
+                    en: "Image Recognition API",
+                    ar: "API التعرف على الصور"
+                },
+                category: {
+                    en: "AI Solution",
+                    ar: "حل الذكاء الاصطناعي"
+                },
+                description: {
+                    en: "Cloud-based image analysis and object detection service. Provides RESTful API for image processing, face recognition, and computer vision applications.",
+                    ar: "خدمة تحليل الصور والكشف عن الكائنات المستندة إلى السحابة. توفر RESTful API لمعالجة الصور والتعرف على الوجوه وتطبيقات رؤية الكمبيوتر."
+                },
+                tech: ["Python", "OpenCV", "Flask", "TensorFlow", "Docker", "AWS Lambda"],
+                features: {
+                    en: [
+                        "Object detection",
+                        "Face recognition",
+                        "Image classification",
+                        "OCR text extraction",
+                        "RESTful API",
+                        "Scalable architecture"
+                    ],
+                    ar: [
+                        "الكشف عن الكائنات",
+                        "التعرف على الوجوه",
+                        "تصنيف الصور",
+                        "استخراج النص OCR",
+                        "RESTful API",
+                        "هندسة قابلة للتوسع"
+                    ]
+                },
+                image: "ai.jpg"
+            },
+            16: {
+                title: {
+                    en: "E-commerce Flutter App",
+                    ar: "تطبيق Flutter للتجارة الإلكترونية"
+                },
+                category: {
+                    en: "Flutter Application",
+                    ar: "تطبيق Flutter"
+                },
+                description: {
+                    en: "Cross-platform shopping application built with Flutter for seamless iOS and Android experience. Features include product browsing, shopping cart, user authentication, and payment integration.",
+                    ar: "تطبيق تسوق متعدد المنصات مبني بـ Flutter لتجربة سلسة على iOS وAndroid. تشمل الميزات تصفح المنتجات وعربة التسوق والمصادقة على المستخدم وتكامل الدفع."
+                },
+                tech: ["Flutter", "Dart", "Firebase", "Provider", "Stripe API", "Cloud Firestore"],
+                features: {
+                    en: [
+                        "Cross-platform compatibility",
+                        "Responsive UI design",
+                        "Real-time database",
+                        "Push notifications",
+                        "Payment processing",
+                        "Offline support"
+                    ],
+                    ar: [
+                        "التوافق متعدد المنصات",
+                        "تصميم واجهة مستخدم متجاوب",
+                        "قاعدة بيانات في الوقت الفعلي",
+                        "الإشعارات الفورية",
+                        "معالجة الدفع",
+                        "دعم العمل دون اتصال"
+                    ]
+                },
+                image: "https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1374&q=80"
+            }
+        };
+
+        // Open modal when portfolio item is clicked
+        portfolioGrid.addEventListener('click', (e) => {
+            const portfolioItem = e.target.closest('.portfolio-item');
+            if (portfolioItem) {
+                const projectId = portfolioItem.getAttribute('data-project');
+                const project = projectData[projectId];
+                
+                if (project) {
+                    try {
+                        // Update modal content based on current language
+                        const modalTitle = document.getElementById('modalTitle');
+                        const modalCategory = document.getElementById('modalCategory');
+                        const modalDescription = document.getElementById('modalDescription');
+                        
+                        // Set title, category, and description based on current language
+                        modalTitle.textContent = project.title[currentLang] || project.title.en;
+                        modalCategory.textContent = project.category[currentLang] || project.category.en;
+                        modalDescription.textContent = project.description[currentLang] || project.description.en;
+                        
+                        // Set image with error handling
+                        const modalImg = document.getElementById('modalImg');
+                        modalImg.src = project.image;
+                        modalImg.alt = `${project.title[currentLang] || project.title.en} - ${project.category[currentLang] || project.category.en}`;
+                        
+                        // Populate tech stack
+                        const techContainer = document.getElementById('modalTech');
+                        techContainer.innerHTML = '';
+                        project.tech.forEach(tech => {
+                            const tag = document.createElement('span');
+                            tag.className = 'modal-tech-tag';
+                            tag.textContent = tech;
+                            techContainer.appendChild(tag);
+                        });
+                        
+                        // Populate features based on current language
+                        const featuresContainer = document.getElementById('modalFeatures');
+                        featuresContainer.innerHTML = '';
+                        const features = project.features[currentLang] || project.features.en;
+                        features.forEach(feature => {
+                            const li = document.createElement('li');
+                            li.textContent = feature;
+                            featuresContainer.appendChild(li);
+                        });
+                        
+                        // Show modal
+                        modal.style.display = 'block';
+                        document.body.style.overflow = 'hidden';
+                        
+                        // Focus management for accessibility
+                        modal.focus();
+                        closeModal.focus();
+                        
+                    } catch (error) {
+                        console.error('Error opening modal:', error);
+                        // Fallback: show basic modal with available data
+                        document.getElementById('modalTitle').textContent = project.title?.en || 'Project Details';
+                        document.getElementById('modalCategory').textContent = project.category?.en || 'Project';
+                        document.getElementById('modalDescription').textContent = project.description?.en || 'Project details are currently unavailable.';
+                        
+                        modal.style.display = 'block';
+                        document.body.style.overflow = 'hidden';
+                    }
+                } else {
+                    console.warn(`Project data not found for ID: ${projectId}`);
+                    // Show default modal for projects without data
+                    document.getElementById('modalTitle').textContent = 'Project Details';
+                    document.getElementById('modalCategory').textContent = 'Project';
+                    document.getElementById('modalDescription').textContent = 'Project details are currently being updated. Please check back later.';
+                    
+                    // Clear tech and features
+                    document.getElementById('modalTech').innerHTML = '';
+                    document.getElementById('modalFeatures').innerHTML = '';
+                    
+                    modal.style.display = 'block';
+                    document.body.style.overflow = 'hidden';
+                }
+            }
+        });
+
+        // Close modal
+        closeModal.addEventListener('click', () => {
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        });
+
+        // Close modal when clicking outside content
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // Keyboard navigation support
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal.style.display === 'block') {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // Trap focus within modal when open
+        const modalFocusableElements = modal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+        const firstFocusableElement = modalFocusableElements[0];
+        const lastFocusableElement = modalFocusableElements[modalFocusableElements.length - 1];
+
+        modal.addEventListener('keydown', (e) => {
+            if (e.key === 'Tab') {
+                if (e.shiftKey) {
+                    if (document.activeElement === firstFocusableElement) {
+                        e.preventDefault();
+                        lastFocusableElement.focus();
+                    }
+                } else {
+                    if (document.activeElement === lastFocusableElement) {
+                        e.preventDefault();
+                        firstFocusableElement.focus();
+                    }
+                }
+            }
+        });
+
+        // Language switching functionality
+        let currentLang = 'en';
+        
+        function switchLanguage() {
+            currentLang = currentLang === 'en' ? 'ar' : 'en';
+            const langText = document.querySelector('.lang-text');
+            const body = document.body;
+            
+            if (currentLang === 'ar') {
+                langText.textContent = 'English';
+                body.setAttribute('dir', 'rtl');
+                body.style.fontFamily = 'Arial, sans-serif';
+            } else {
+                langText.textContent = 'العربية';
+                body.removeAttribute('dir');
+                body.style.fontFamily = '';
+            }
+            
+            // Update all elements with data attributes
+            updateLanguageElements();
+        }
+        
+        function updateLanguageElements() {
+            const elements = document.querySelectorAll('[data-en][data-ar]');
+            elements.forEach(element => {
+                if (currentLang === 'ar') {
+                    element.textContent = element.getAttribute('data-ar');
+                } else {
+                    element.textContent = element.getAttribute('data-en');
+                }
+            });
+            
+            // Update modal content if it's currently open
+            if (modal.style.display === 'block') {
+                const modalTitle = document.getElementById('modalTitle');
+                const modalCategory = document.getElementById('modalCategory');
+                const modalDescription = document.getElementById('modalDescription');
+                const modalFeatures = document.getElementById('modalFeatures');
+                
+                // Find the currently displayed project
+                const currentProjectId = getCurrentProjectId();
+                if (currentProjectId && projectData[currentProjectId]) {
+                    const project = projectData[currentProjectId];
+                    
+                    // Update modal content based on new language
+                    modalTitle.textContent = project.title[currentLang] || project.title.en;
+                    modalCategory.textContent = project.category[currentLang] || project.category.en;
+                    modalDescription.textContent = project.description[currentLang] || project.description.en;
+                    
+                    // Update features
+                    modalFeatures.innerHTML = '';
+                    const features = project.features[currentLang] || project.features.en;
+                    features.forEach(feature => {
+                        const li = document.createElement('li');
+                        li.textContent = feature;
+                        modalFeatures.appendChild(li);
+                    });
+                }
+            }
+        }
+        
+        // Helper function to get current project ID from modal
+        function getCurrentProjectId() {
+            const modalTitle = document.getElementById('modalTitle');
+            if (!modalTitle) return null;
+            
+            // Find project by matching title
+            for (const [id, project] of Object.entries(projectData)) {
+                if (project.title[currentLang] === modalTitle.textContent || 
+                    project.title.en === modalTitle.textContent || 
+                    project.title.ar === modalTitle.textContent) {
+                    return id;
+                }
+            }
+            return null;
+        }
+        
+        // Initialize language switcher
+        document.addEventListener('DOMContentLoaded', function() {
+            const langToggle = document.getElementById('langToggle');
+            if (langToggle) {
+                langToggle.addEventListener('click', switchLanguage);
+            }
+        });
+    </script>
+</body>
+</html>
