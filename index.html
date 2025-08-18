@@ -112,46 +112,50 @@
         /* Mobile Header Adjustments */
         @media (max-width: 768px) {
             header {
-                padding: 8px 0;
-            }
-            
-            header.scrolled {
                 padding: 6px 0;
             }
             
+            header.scrolled {
+                padding: 4px 0;
+            }
+            
             .container {
-                padding: 0 15px;
+                padding: 0 12px;
             }
             
             nav {
                 align-items: center;
-                min-height: 50px;
+                min-height: 44px;
+                gap: 0;
             }
             
             .logo {
-                font-size: 1.3rem;
-                gap: 8px;
+                font-size: 1.2rem;
+                gap: 6px;
+                flex-shrink: 0;
             }
             
             .logo img {
-                width: 32px !important;
-                height: 32px !important;
-                margin-right: 8px !important;
+                width: 28px !important;
+                height: 28px !important;
+                margin-right: 6px !important;
             }
             
             .language-switcher {
-                margin-left: 10px;
+                margin-left: 8px;
+                flex-shrink: 0;
             }
             
             .lang-btn {
-                width: 36px;
-                height: 36px;
-                font-size: 0.9rem;
+                width: 32px;
+                height: 32px;
+                font-size: 0.8rem;
             }
             
             .hamburger {
-                margin-left: 10px;
-                font-size: 1.3rem;
+                margin-left: 8px;
+                font-size: 1.2rem;
+                flex-shrink: 0;
             }
         }
 
@@ -159,6 +163,16 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            width: 100%;
+        }
+
+        /* Ensure proper spacing on mobile */
+        @media (max-width: 768px) {
+            nav {
+                justify-content: space-between;
+                align-items: center;
+                width: 100%;
+            }
         }
 
         .logo {
@@ -293,13 +307,13 @@
         /* Mobile Hero Adjustments */
         @media (max-width: 768px) {
             .hero {
-                padding-top: 60px;
+                padding-top: 50px;
             }
         }
 
         @media (max-width: 576px) {
             .hero {
-                padding-top: 55px;
+                padding-top: 45px;
             }
         }
 
@@ -1477,41 +1491,45 @@
 
         @media (max-width: 576px) {
             header {
-                padding: 6px 0;
-            }
-            
-            header.scrolled {
                 padding: 4px 0;
             }
             
+            header.scrolled {
+                padding: 2px 0;
+            }
+            
             .container {
-                padding: 0 12px;
+                padding: 0 10px;
+            }
+            
+            nav {
+                min-height: 40px;
             }
             
             .logo {
-                font-size: 1.2rem;
-                gap: 6px;
+                font-size: 1.1rem;
+                gap: 5px;
             }
             
             .logo img {
-                width: 28px !important;
-                height: 28px !important;
-                margin-right: 6px !important;
+                width: 26px !important;
+                height: 26px !important;
+                margin-right: 5px !important;
             }
             
             .language-switcher {
-                margin-left: 8px;
+                margin-left: 6px;
             }
             
             .lang-btn {
-                width: 32px;
-                height: 32px;
-                font-size: 0.8rem;
+                width: 30px;
+                height: 30px;
+                font-size: 0.75rem;
             }
             
             .hamburger {
-                margin-left: 8px;
-                font-size: 1.2rem;
+                margin-left: 6px;
+                font-size: 1.1rem;
             }
             
             .hero h1 {
@@ -3256,4 +3274,5 @@
     </script>
 </body>
 </html>
+
 
