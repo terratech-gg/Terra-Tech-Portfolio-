@@ -109,6 +109,52 @@
             padding: 10px 0;
         }
 
+        /* Mobile Header Adjustments */
+        @media (max-width: 768px) {
+            header {
+                padding: 8px 0;
+            }
+            
+            header.scrolled {
+                padding: 6px 0;
+            }
+            
+            .container {
+                padding: 0 15px;
+            }
+            
+            nav {
+                align-items: center;
+                min-height: 50px;
+            }
+            
+            .logo {
+                font-size: 1.3rem;
+                gap: 8px;
+            }
+            
+            .logo img {
+                width: 32px !important;
+                height: 32px !important;
+                margin-right: 8px !important;
+            }
+            
+            .language-switcher {
+                margin-left: 10px;
+            }
+            
+            .lang-btn {
+                width: 36px;
+                height: 36px;
+                font-size: 0.9rem;
+            }
+            
+            .hamburger {
+                margin-left: 10px;
+                font-size: 1.3rem;
+            }
+        }
+
         nav {
             display: flex;
             justify-content: space-between;
@@ -242,6 +288,19 @@
             overflow: hidden;
             background: radial-gradient(circle at center, rgba(185, 103, 255, 0.1) 0%, rgba(10, 10, 15, 0) 70%);
             padding-top: 70px;
+        }
+
+        /* Mobile Hero Adjustments */
+        @media (max-width: 768px) {
+            .hero {
+                padding-top: 60px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero {
+                padding-top: 55px;
+            }
         }
 
         .hero-shapes {
@@ -1351,7 +1410,7 @@
                 background: var(--bg-darker);
                 flex-direction: column;
                 align-items: flex-start;
-                padding: 80px 30px 30px;
+                padding: 70px 25px 25px;
                 transition: var(--transition);
                 z-index: 999;
                 box-shadow: -5px 0 20px rgba(0, 0, 0, 0.3);
@@ -1373,14 +1432,14 @@
             }
             
             .nav-links li {
-                margin: 15px 0;
+                margin: 12px 0;
                 width: 100%;
             }
             
             .nav-links a {
-                font-size: 1.1rem;
+                font-size: 1rem;
                 display: block;
-                padding: 8px 0;
+                padding: 10px 0;
             }
             
             .hero h1 {
@@ -1417,6 +1476,44 @@
         }
 
         @media (max-width: 576px) {
+            header {
+                padding: 6px 0;
+            }
+            
+            header.scrolled {
+                padding: 4px 0;
+            }
+            
+            .container {
+                padding: 0 12px;
+            }
+            
+            .logo {
+                font-size: 1.2rem;
+                gap: 6px;
+            }
+            
+            .logo img {
+                width: 28px !important;
+                height: 28px !important;
+                margin-right: 6px !important;
+            }
+            
+            .language-switcher {
+                margin-left: 8px;
+            }
+            
+            .lang-btn {
+                width: 32px;
+                height: 32px;
+                font-size: 0.8rem;
+            }
+            
+            .hamburger {
+                margin-left: 8px;
+                font-size: 1.2rem;
+            }
+            
             .hero h1 {
                 font-size: 1.8rem;
             }
@@ -3159,3 +3256,4 @@
     </script>
 </body>
 </html>
+
