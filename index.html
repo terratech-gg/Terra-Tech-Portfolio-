@@ -234,6 +234,28 @@
             justify-content: center;
             transition: var(--transition);
             font-size: 1rem;
+            overflow: hidden;
+        }
+
+        /* Mobile Language Switcher - Full Coverage */
+        @media (max-width: 768px) {
+            .lang-btn {
+                width: 32px;
+                height: 32px;
+                font-size: 0.8rem;
+                border-radius: 50%;
+                overflow: hidden;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .lang-btn {
+                width: 30px;
+                height: 30px;
+                font-size: 0.75rem;
+                border-radius: 50%;
+                overflow: hidden;
+            }
         }
 
         .lang-btn:hover {
@@ -243,6 +265,25 @@
 
         .lang-btn i {
             font-size: 1.2rem;
+        }
+
+        .lang-btn .lang-text {
+            font-size: 0.75rem;
+            font-weight: 600;
+            line-height: 1;
+        }
+
+        /* Mobile text sizing */
+        @media (max-width: 768px) {
+            .lang-btn .lang-text {
+                font-size: 0.7rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .lang-btn .lang-text {
+                font-size: 0.65rem;
+            }
         }
 
         /* RTL Support */
@@ -3274,5 +3315,3 @@
     </script>
 </body>
 </html>
-
-
