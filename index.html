@@ -1336,93 +1336,32 @@
             }
         }
 
-     @media (max-width: 768px) {
-  header {
-    padding: 10px 0;
-  }
-  
-  .logo span {
-    font-size: 1.2rem;
-  }
-
-  .nav-links {
-    position: fixed;
-    top: 0;
-    right: -100%;
-    width: 80%;
-    max-width: 300px;
-    height: 100vh;
-    background: var(--bg-darker);
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 80px 30px 30px;
-    transition: all 0.5s ease;
-    z-index: 1000;
-    box-shadow: -5px 0 20px rgba(0, 0, 0, 0.3);
-    overflow-y: auto;
-  }
-
-  body[dir="rtl"] .nav-links {
-    right: auto;
-    left: -100%;
-    box-shadow: 5px 0 20px rgba(0, 0, 0, 0.3);
-  }
-
-  .nav-links.active {
-    right: 0;
-  }
-
-  body[dir="rtl"] .nav-links.active {
-    left: 0;
-    right: auto;
-  }
-
-  .nav-links li {
-    margin: 15px 0;
-    width: 100%;
-  }
-
-  .nav-links a {
-    font-size: 1.1rem;
-    display: block;
-    padding: 12px 0;
-    width: 100%;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  }
-
-  .language-switcher {
-    position: absolute;
-    top: 20px;
-    right: 60px;
-    margin-left: 0;
-  }
-
-  body[dir="rtl"] .language-switcher {
-    right: auto;
-    left: 60px;
-  }
-
-  .hamburger {
-    display: block;
-    z-index: 1001;
-    position: relative;
-  }
-
-  .mobile-nav-close {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    color: white;
-    font-size: 1.8rem;
-    cursor: pointer;
-    z-index: 1002;
-  }
-
-  body[dir="rtl"] .mobile-nav-close {
-    right: auto;
-    left: 20px;
-  }
-}
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                max-width: 300px;
+                height: 100vh;
+                background: var(--bg-darker);
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 80px 30px 30px;
+                transition: var(--transition);
+                z-index: 999;
+                box-shadow: -5px 0 20px rgba(0, 0, 0, 0.3);
+            }
+            
+            body[dir="rtl"] .nav-links {
+                right: auto;
+                left: -100%;
+                box-shadow: 5px 0 20px rgba(0, 0, 0, 0.3);
+            }
             
             .nav-links.active {
                 right: 0;
@@ -1575,26 +1514,23 @@
                     <img src="logo.png" alt="Terra Tech Logo" style="width: 40px; height: 40px; margin-right: 10px;">
                     <span>Terra Tech</span>
                 </div>
-               <ul class="nav-links">
-        <li class="mobile-nav-close"><i class="fas fa-times"></i></li>
-        <li><a href="#hero" data-en="Home" data-ar="الرئيسية">Home</a></li>
-        <li><a href="#about" data-en="About" data-ar="من نحن">About</a></li>
-        <li><a href="#services" data-en="Services" data-ar="خدماتنا">Services</a></li>
-        <li><a href="#portfolio" data-en="Portfolio" data-ar="أعمالنا">Portfolio</a></li>
-        <li><a href="#features" data-en="Why Us" data-ar="لماذا نحن">Why Us</a></li>
-        <li><a href="#contact" data-en="Contact" data-ar="اتصل بنا">Contact</a></li>
-      </ul>
-      
-      <div class="language-switcher">
-        <button id="langToggle" class="lang-btn">
-          <span class="lang-text"></span>
-          <i class="fas fa-globe"></i>
-        </button>
-      </div>
-      
-      <div class="hamburger">
-        <i class="fas fa-bars"></i>
-      </div>
+                <ul class="nav-links">
+                    <li><a href="#hero" data-en="Home" data-ar="الرئيسية">Home</a></li>
+                    <li><a href="#about" data-en="About" data-ar="من نحن">About</a></li>
+                    <li><a href="#services" data-en="Services" data-ar="خدماتنا">Services</a></li>
+                    <li><a href="#portfolio" data-en="Portfolio" data-ar="أعمالنا">Portfolio</a></li>
+                    <li><a href="#features" data-en="Why Us" data-ar="لماذا نحن">Why Us</a></li>
+                    <li><a href="#contact" data-en="Contact" data-ar="اتصل بنا">Contact</a></li>
+                </ul>
+                <div class="language-switcher">
+                    <button id="langToggle" class="lang-btn">
+                        <span class="lang-text">العربية</span>
+                        <i class="fas fa-globe"></i>
+                    </button>
+                </div>
+                <div class="hamburger">
+                    <i class="fas fa-bars"></i>
+                </div>
             </nav>
         </div>
     </header>
@@ -3220,36 +3156,6 @@
                 }, 1500);
             }
         });
-        // Mobile menu functionality
-const hamburger = document.querySelector('.hamburger');
-const navLinks = document.querySelector('.nav-links');
-const mobileClose = document.querySelector('.mobile-nav-close');
-
-hamburger.addEventListener('click', () => {
-  navLinks.classList.add('active');
-});
-
-mobileClose.addEventListener('click', () => {
-  navLinks.classList.remove('active');
-});
-
-// Close menu when clicking links
-document.querySelectorAll('.nav-links a').forEach(link => {
-  link.addEventListener('click', () => {
-    navLinks.classList.remove('active');
-  });
-});
-
-// Close menu when clicking outside
-document.addEventListener('click', (e) => {
-  if (!navLinks.contains(e.target) && 
-      !hamburger.contains(e.target) &&
-      navLinks.classList.contains('active')) {
-    navLinks.classList.remove('active');
-  }
-});
     </script>
 </body>
 </html>
-
-
