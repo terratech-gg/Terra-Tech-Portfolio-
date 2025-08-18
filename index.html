@@ -8,6 +8,7 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Orbitron:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-dark: #0a0a0f;
@@ -66,6 +67,7 @@
             overflow: hidden;
             transition: var(--transition);
             z-index: 1;
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.3), 0 0 40px rgba(185, 103, 255, 0.2);
         }
 
         .btn::before {
@@ -86,7 +88,7 @@
 
         .btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(185, 103, 255, 0.4);
+            box-shadow: 0 0 30px rgba(0, 243, 255, 0.5), 0 0 60px rgba(185, 103, 255, 0.3), 0 5px 15px rgba(185, 103, 255, 0.4);
         }
 
         /* Header & Navigation */
@@ -96,7 +98,7 @@
             left: 0;
             width: 100%;
             padding: 20px 0;
-            z-index: 1000;
+            z-index: 9999;
             transition: var(--transition);
             background: rgba(10, 10, 15, 0.95);
             backdrop-filter: blur(10px);
@@ -124,6 +126,7 @@
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(0, 243, 255, 0.5), 0 0 40px rgba(185, 103, 255, 0.3);
         }
 
         .logo-icon {
@@ -195,6 +198,12 @@
             margin-right: 20px;
         }
 
+        /* Improve Arabic CTA readability */
+        body[dir="rtl"] .btn {
+            letter-spacing: 0;
+            text-transform: none;
+        }
+
         .nav-links a::after {
             content: '';
             position: absolute;
@@ -234,7 +243,8 @@
             width: 100%;
             height: 100%;
             pointer-events: none;
-            z-index: 1;
+            z-index: 0;
+            will-change: transform;
         }
 
         .shape {
@@ -272,9 +282,19 @@
 
         .hero-content {
             max-width: 700px;
-            z-index: 2;
+            z-index: 1;
             text-align: center;
             margin: 0 auto;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .hero-btn {
+            margin-top: 20px;
+            display: block;
+            width: fit-content;
         }
 
         .hero h1 {
@@ -288,6 +308,7 @@
             opacity: 0;
             transform: translateY(20px);
             animation: fadeUp 0.8s forwards 0.3s;
+            text-shadow: 0 0 30px rgba(0, 243, 255, 0.6), 0 0 60px rgba(185, 103, 255, 0.4);
         }
 
         .hero p {
@@ -312,6 +333,7 @@
         section {
             padding: 100px 0;
             position: relative;
+            z-index: 1;
         }
 
         .section-title {
@@ -330,6 +352,7 @@
             opacity: 0;
             transform: translateY(20px);
             animation: fadeUp 0.8s forwards;
+            text-shadow: 0 0 25px rgba(0, 243, 255, 0.5), 0 0 50px rgba(185, 103, 255, 0.3);
         }
 
         .section-title::after {
@@ -404,6 +427,7 @@
             z-index: 1;
             opacity: 0;
             transform: translateY(20px);
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.1), 0 0 30px rgba(185, 103, 255, 0.05);
         }
 
         .service-card:nth-child(1) { animation: fadeUp 0.8s forwards 0.2s; }
@@ -435,6 +459,7 @@
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(0, 243, 255, 0.4), 0 0 40px rgba(185, 103, 255, 0.2);
         }
 
         .service-card h3 {
@@ -486,12 +511,12 @@
             width: 100%;
             height: 100%;
             background: radial-gradient(circle at 80% 20%, rgba(185, 103, 255, 0.05) 0%, rgba(10, 10, 15, 0) 70%);
-            z-index: 1;
+            z-index: 0;
         }
 
         .portfolio-container {
             position: relative;
-            z-index: 2;
+            z-index: 1;
         }
 
         .portfolio-filters {
@@ -530,11 +555,12 @@
             position: relative;
             height: 280px;
             transition: var(--transition);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), 0 0 15px rgba(0, 243, 255, 0.1);
             border: 1px solid var(--card-border);
             opacity: 0;
             transform: translateY(20px);
             cursor: pointer;
+            z-index: 1;
         }
 
         .portfolio-item:nth-child(1) { animation: fadeUp 0.8s forwards 0.2s; }
@@ -566,6 +592,7 @@
             justify-content: flex-end;
             padding: 25px;
             transition: var(--transition);
+            z-index: 2;
         }
 
         .portfolio-item:hover .portfolio-overlay {
@@ -659,6 +686,7 @@
             transition: var(--transition);
             opacity: 0;
             transform: translateY(20px);
+            z-index: 1;
         }
 
         .feature-card:nth-child(1) { animation: fadeUp 0.8s forwards 0.2s; }
@@ -672,6 +700,7 @@
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(0, 243, 255, 0.4), 0 0 40px rgba(185, 103, 255, 0.2);
         }
 
         .feature-card h3 {
@@ -731,6 +760,7 @@
             border-radius: 15px;
             padding: 25px;
             transition: var(--transition);
+            z-index: 1;
         }
 
         .contact-item:hover {
@@ -826,7 +856,7 @@
             width: 100%;
             height: 100%;
             background: rgba(0, 0, 0, 0.9);
-            z-index: 2000;
+            z-index: 10000;
             overflow-y: auto;
             padding: 50px 20px;
         }
@@ -847,7 +877,7 @@
             color: white;
             font-size: 1.8rem;
             cursor: pointer;
-            z-index: 10;
+            z-index: 10001;
             transition: var(--transition);
         }
 
@@ -1022,7 +1052,32 @@
         /* Enhanced hover effects */
         .trust-item:hover {
             transform: translateY(-10px);
-            box-shadow: 0 15px 35px rgba(0, 243, 255, 0.2);
+            box-shadow: 0 0 25px rgba(0, 243, 255, 0.2), 0 0 50px rgba(185, 103, 255, 0.15), 0 15px 35px rgba(0, 243, 255, 0.2);
+        }
+
+        /* Enhanced slogan animation */
+        .slogan {
+            animation: pulse 2s infinite;
+            box-shadow: 0 0 20px rgba(185, 103, 255, 0.2), 0 0 40px rgba(255, 107, 139, 0.1);
+        }
+
+        /* Enhanced section titles */
+        .section-title h2::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(45deg, var(--accent-blue), var(--accent-purple));
+            border-radius: 2px;
+        }
+
+        /* Enhanced navigation links */
+        .nav-links a:hover {
+            color: var(--accent-blue);
+            text-shadow: 0 0 10px rgba(0, 243, 255, 0.5);
         }
 
         .trust-item:hover img {
@@ -1053,17 +1108,76 @@
         /* Enhanced service card animations */
         .service-card:hover {
             transform: translateY(-15px);
-            box-shadow: 0 20px 40px rgba(185, 103, 255, 0.3);
+            box-shadow: 0 0 25px rgba(0, 243, 255, 0.2), 0 0 50px rgba(185, 103, 255, 0.15), 0 20px 40px rgba(185, 103, 255, 0.3);
         }
 
         .service-card:hover .service-icon {
             animation: pulse 1s ease-in-out;
         }
 
+        /* Enhanced portfolio items */
+        .portfolio-item:hover .portfolio-overlay {
+            background: linear-gradient(0deg, rgba(0, 0, 0, 0.9), rgba(185, 103, 255, 0.2) 60%);
+        }
+
+        /* Enhanced contact items */
+        .contact-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 25px rgba(0, 243, 255, 0.2), 0 0 50px rgba(185, 103, 255, 0.15);
+        }
+
+        /* Enhanced footer links */
+        .footer-links a:hover {
+            color: var(--accent-blue);
+            text-shadow: 0 0 10px rgba(0, 243, 255, 0.5);
+            padding-left: 5px;
+        }
+
+        /* Enhanced active state for elements */
+        .service-card.active,
+        .portfolio-item.active,
+        .feature-card.active,
+        .trust-item.active,
+        .client-card.active,
+        .tech-item.active,
+        .showcase-item.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Enhanced loading animation */
+        .loading-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-dark);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 99999;
+            transition: opacity 0.5s ease;
+        }
+
+        .loading-animation.fade-out {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .loading-logo {
+            font-size: 3rem;
+            background: linear-gradient(45deg, var(--accent-blue), var(--accent-purple));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: pulse 1.5s infinite;
+        }
+
         /* Enhanced feature card animations */
         .feature-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 15px 35px rgba(0, 243, 255, 0.2);
+            box-shadow: 0 0 25px rgba(0, 243, 255, 0.2), 0 0 50px rgba(185, 103, 255, 0.15), 0 15px 35px rgba(0, 243, 255, 0.2);
         }
 
         .feature-card:hover .feature-icon {
@@ -1077,6 +1191,7 @@
             opacity: 0;
             transform: translateY(30px);
             animation: fadeUp 0.8s forwards;
+            z-index: 1;
         }
 
         .client-card:nth-child(1) { animation-delay: 0.2s; }
@@ -1085,7 +1200,7 @@
 
         .client-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(185, 103, 255, 0.3);
+            box-shadow: 0 0 25px rgba(0, 243, 255, 0.2), 0 0 50px rgba(185, 103, 255, 0.15), 0 20px 40px rgba(185, 103, 255, 0.3);
         }
 
         .client-card:hover img {
@@ -1108,6 +1223,7 @@
             opacity: 0;
             transform: translateY(30px);
             animation: fadeUp 0.8s forwards;
+            z-index: 1;
         }
 
         .tech-item:nth-child(1) { animation-delay: 0.2s; }
@@ -1117,7 +1233,7 @@
 
         .tech-item:hover {
             transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 243, 255, 0.3);
+            box-shadow: 0 0 25px rgba(0, 243, 255, 0.2), 0 0 50px rgba(185, 103, 255, 0.15), 0 20px 40px rgba(0, 243, 255, 0.3);
         }
 
         .tech-item:hover img {
@@ -1138,6 +1254,7 @@
             opacity: 0;
             transform: translateY(30px);
             animation: fadeUp 0.8s forwards;
+            z-index: 1;
         }
 
         .showcase-item:nth-child(1) { animation-delay: 0.2s; }
@@ -1146,7 +1263,7 @@
 
         .showcase-item:hover {
             transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(185, 103, 255, 0.3);
+            box-shadow: 0 0 25px rgba(0, 243, 255, 0.2), 0 0 50px rgba(185, 103, 255, 0.15), 0 20px 40px rgba(185, 103, 255, 0.3);
         }
 
         .showcase-item:hover img {
@@ -1159,6 +1276,73 @@
         .trust-item img,
         .client-card img {
             transition: all 0.3s ease;
+        }
+
+        /* Global image beautification */
+        .portfolio-img,
+        .mockup-img,
+        .service-gallery img,
+        .feature-image img,
+        .trust-item img,
+        .client-card img,
+        .office-showcase img,
+        .about-img,
+        .tech-item img {
+            border-radius: 12px;
+            outline: 1px solid rgba(185, 103, 255, 0.25);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35), 0 0 24px rgba(0, 243, 255, 0.12), 0 0 12px rgba(185, 103, 255, 0.12);
+            filter: saturate(1.08) contrast(1.04) brightness(1.02);
+            transition: transform 0.5s ease, filter 0.5s ease, box-shadow 0.5s ease, outline-color 0.5s ease;
+            will-change: transform, filter;
+            backface-visibility: hidden;
+        }
+
+        .portfolio-item:hover .portfolio-img,
+        .service-card:hover .mockup-img,
+        .service-gallery img:hover,
+        .feature-image img:hover,
+        .trust-item:hover img,
+        .client-card:hover img,
+        .office-showcase img:hover,
+        .tech-item:hover img,
+        .about-image:hover .about-img {
+            filter: saturate(1.2) contrast(1.08) brightness(1.08);
+            box-shadow: 0 18px 45px rgba(0, 0, 0, 0.45), 0 0 36px rgba(0, 243, 255, 0.25), 0 0 22px rgba(185, 103, 255, 0.2);
+        }
+
+        /* Subtle animated shine on hover for visual cards */
+        .trust-item,
+        .client-card,
+        .showcase-item,
+        .tech-item,
+        .service-card {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .trust-item::after,
+        .client-card::after,
+        .showcase-item::after,
+        .tech-item::after,
+        .service-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -150%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+            transform: skewX(-20deg);
+            transition: left 0.8s ease;
+            pointer-events: none;
+        }
+
+        .trust-item:hover::after,
+        .client-card:hover::after,
+        .showcase-item:hover::after,
+        .tech-item:hover::after,
+        .service-card:hover::after {
+            left: 150%;
         }
 
         /* Responsive */
@@ -1256,6 +1440,13 @@
     </style>
 </head>
 <body>
+    <!-- Loading Animation -->
+    <div class="loading-animation" id="loadingAnimation">
+        <div class="loading-logo">
+            <i class="fas fa-rocket"></i>
+        </div>
+    </div>
+
     <!-- Header & Navigation -->
     <header id="header">
         <div class="container">
@@ -1297,8 +1488,9 @@
                 <h1 data-en="We Build Future-Ready Digital Solutions" data-ar="نحن نبني حلول رقمية جاهزة للمستقبل">We Build Future-Ready Digital Solutions</h1>
                 <p data-en="From websites to AI-powered tools, we craft technology that works for you." data-ar="من المواقع الإلكترونية إلى أدوات الذكاء الاصطناعي، نحن نصنع تقنية تعمل من أجلك">From websites to AI-powered tools, we craft technology that works for you.</p>
                 <div class="slogan" style="margin: 20px 0; padding: 15px 25px; background: linear-gradient(135deg, rgba(185, 103, 255, 0.1), rgba(255, 107, 139, 0.1)); border: 1px solid rgba(185, 103, 255, 0.3); border-radius: 15px; display: inline-block;">
-                    <p style="margin: 0; font-size: 1.1rem; color: var(--accent-purple); font-weight: 600; text-align: center;" data-en='✨ "½ Ideas, ²⁄₂ Execution" — Where visions take shape' data-ar='✨ "½ أفكار،²⁄₂ تنفيذ" — حيث تتشكل الرؤى'>
+                    <p style="margin: 0; font-size: 1.1rem; color: var(--accent-purple); font-weight: 600; text-align: center;" data-en='✨ "½ Ideas, ²⁄₂ Execution" — Where visions take shape' data-ar='✨ «١⁄٢ أفكار، ٢⁄٢ تنفيذ» — حيث تتشكل الرؤى' dir="auto">
                         “½ Ideas, ²⁄₂ Execution — Where visions take shape”
+                    </p>
                 </div>
                 <a href="#portfolio" class="btn hero-btn" data-en="View Our Portfolio" data-ar="شاهد أعمالنا">View Our Portfolio</a>
             </div>
@@ -1328,17 +1520,17 @@
             <div class="trust-images" style="margin-top: 60px;">
                 <h3 style="text-align: center; margin-bottom: 40px; color: var(--text-light);" data-en="Our Success Stories" data-ar="قصص نجاحنا">Our Success Stories</h3>
                 <div class="trust-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px;">
-                    <div class="trust-item" style="text-align: center; background: var(--card-bg); border-radius: 15px; padding: 25px; border: 1px solid var(--card-border); transition: var(--transition);">
+                    <div class="trust-item" style="text-align: center; background: var(--card-bg); border-radius: 15px; padding: 25px; border: 1px solid var(--card-border); transition: var(--transition); z-index: 1;">
                         <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1471&q=80" alt="Team Collaboration" style="width: 100%; height: 180px; object-fit: cover; border-radius: 10px; margin-bottom: 20px;">
                         <h4 style="color: var(--accent-blue); margin-bottom: 15px;" data-en="Team Collaboration" data-ar="تعاون الفريق">Team Collaboration</h4>
                         <p style="color: var(--text-gray); font-size: 0.9rem;" data-en="Our collaborative approach ensures every project meets the highest standards of quality and innovation." data-ar="نهجنا التعاوني يضمن أن كل مشروع يلبي أعلى معايير الجودة والابتكار.">Our collaborative approach ensures every project meets the highest standards of quality and innovation.</p>
                     </div>
-                    <div class="trust-item" style="text-align: center; background: var(--card-bg); border-radius: 15px; padding: 25px; border: 1px solid var(--card-border); transition: var(--transition);">
+                    <div class="trust-item" style="text-align: center; background: var(--card-bg); border-radius: 15px; padding: 25px; border: 1px solid var(--card-border); transition: var(--transition); z-index: 1;">
                         <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80" alt="Innovation Hub" style="width: 100%; height: 180px; object-fit: cover; border-radius: 10px; margin-bottom: 20px;">
                         <h4 style="color: var(--accent-blue); margin-bottom: 15px;" data-en="Innovation Hub" data-ar="مركز الابتكار">Innovation Hub</h4>
                         <p style="color: var(--text-gray); font-size: 0.9rem;" data-en="State-of-the-art development environment where creativity meets cutting-edge technology." data-ar="بيئة تطوير متطورة حيث يلتقي الإبداع بأحدث التقنيات.">State-of-the-art development environment where creativity meets cutting-edge technology.</p>
                     </div>
-                    <div class="trust-item" style="text-align: center; background: var(--card-bg); border-radius: 15px; padding: 25px; border: 1px solid var(--card-border); transition: var(--transition);">
+                    <div class="trust-item" style="text-align: center; background: var(--card-bg); border-radius: 15px; padding: 25px; border: 1px solid var(--card-border); transition: var(--transition); z-index: 1;">
                         <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1415&q=80" alt="Client Success" style="width: 100%; height: 180px; object-fit: cover; border-radius: 10px; margin-bottom: 15px;">
                         <h4 style="color: var(--accent-pink); margin-bottom: 15px;" data-en="Client Success" data-ar="نجاح العملاء">Client Success</h4>
                         <p style="color: var(--text-gray); font-size: 0.9rem;" data-en="Proven track record of delivering successful projects that exceed client expectations." data-ar="سجل حافل بتسليم مشاريع ناجحة تتجاوز توقعات العملاء.">Proven track record of delivering successful projects that exceed client expectations.</p>
@@ -1681,17 +1873,17 @@
              <div class="additional-projects" style="margin: 40px 0;">
                  <h3 style="text-align: center; margin-bottom: 30px; color: var(--text-light);" data-en="More Success Stories" data-ar="المزيد من قصص النجاح">More Success Stories</h3>
                  <div class="project-showcase" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px;">
-                     <div class="showcase-item" style="background: var(--card-bg); border-radius: 15px; padding: 25px; border: 1px solid var(--card-border); transition: var(--transition);">
+                     <div class="showcase-item" style="background: var(--card-bg); border-radius: 15px; padding: 25px; border: 1px solid var(--card-border); transition: var(--transition); z-index: 1;">
                          <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1415&q=80" alt="Financial Success" style="width: 100%; height: 180px; object-fit: cover; border-radius: 10px; margin-bottom: 20px;">
                          <h4 style="color: var(--accent-blue); margin-bottom: 15px;" data-en="Financial Analytics Platform" data-ar="منصة التحليلات المالية">Financial Analytics Platform</h4>
                          <p style="color: var(--text-gray); font-size: 0.9rem;" data-en="Real-time financial data analysis system that helped clients increase ROI by 35%." data-ar="نظام تحليل البيانات المالية في الوقت الفعلي الذي ساعد العملاء على زيادة العائد على الاستثمار بنسبة 35٪.">Real-time financial data analysis system that helped clients increase ROI by 35%.</p>
                      </div>
-                     <div class="showcase-item" style="background: var(--card-bg); border-radius: 15px; padding: 25px; border: 1px solid var(--card-border); transition: var(--transition);">
+                     <div class="showcase-item" style="background: var(--card-bg); border-radius: 15px; padding: 25px; border: 1px solid var(--card-border); transition: var(--transition); z-index: 1;">
                          <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80" alt="Agriculture Innovation" style="width: 100%; height: 180px; object-fit: cover; border-radius: 10px; margin-bottom: 20px;">
                          <h4 style="color: var(--accent-purple); margin-bottom: 15px;" data-en="Smart Agriculture Solution" data-ar="حل الزراعة الذكية">Smart Agriculture Solution</h4>
                          <p style="color: var(--text-gray); font-size: 0.9rem;" data-en="IoT-powered farming system that reduced water usage by 40% and increased crop yield." data-ar="نظام الزراعة المدعوم بإنترنت الأشياء الذي قلل من استخدام المياه بنسبة 40٪ وزاد من محصول المحاصيل.">IoT-powered farming system that reduced water usage by 40% and increased crop yield.</p>
                      </div>
-                     <div class="showcase-item" style="background: var(--card-bg); border-radius: 15px; padding: 25px; border: 1px solid var(--card-border); transition: var(--transition);">
+                     <div class="showcase-item" style="background: var(--card-bg); border-radius: 15px; padding: 25px; border: 1px solid var(--card-border); transition: var(--transition); z-index: 1;">
                          <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1374&q=80" alt="Health Tech" style="width: 100%; height: 180px; object-fit: cover; border-radius: 10px; margin-bottom: 20px;">
                          <h4 style="color: var(--accent-pink); margin-bottom: 15px;" data-en="Healthcare Mobile App" data-ar="تطبيق الرعاية الصحية للهاتف المحمول">Healthcare Mobile App</h4>
                          <p style="color: var(--text-gray); font-size: 0.9rem;" data-en="Patient management system that improved healthcare delivery efficiency by 50%." data-ar="نظام إدارة المرضى الذي حسّن كفاءة تقديم الرعاية الصحية بنسبة 50٪.">Patient management system that improved healthcare delivery efficiency by 50%.</p>
@@ -1764,27 +1956,27 @@
                  <h2 data-en="Our Technology Stack" data-ar="مكدس التقنيات لدينا">Our Technology Stack</h2>
              </div>
              <div class="tech-showcase" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 25px; margin-bottom: 50px;">
-                 <div class="tech-item" style="text-align: center; background: var(--card-bg); border-radius: 15px; padding: 25px; border: 1px solid var(--card-border); transition: var(--transition);">
+                 <div class="tech-item" style="text-align: center; background: var(--card-bg); border-radius: 15px; padding: 25px; border: 1px solid var(--card-border); transition: var(--transition); z-index: 1;">
                      <img src="https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1469&q=80" alt="Frontend Development" style="width: 100%; height: 150px; object-fit: cover; border-radius: 10px; margin-bottom: 20px;">
                      <h4 style="color: var(--accent-blue); margin-bottom: 15px;" data-en="Frontend Excellence" data-ar="تميز الواجهة الأمامية">Frontend Excellence</h4>
                      <p style="color: var(--text-gray); font-size: 0.9rem;" data-en="Modern React, Vue.js, and Angular applications with responsive design and optimal performance." data-ar="تطبيقات React وVue.js وAngular حديثة مع تصميم متجاوب وأداء مثالي.">Modern React, Vue.js, and Angular applications with responsive design and optimal performance.</p>
                  </div>
-                 <div class="tech-item" style="text-align: center; background: var(--card-bg); border-radius: 15px; padding: 25px; border: 1px solid var(--card-border); transition: var(--transition);">
+                 <div class="tech-item" style="text-align: center; background: var(--card-bg); border-radius: 15px; padding: 25px; border: 1px solid var(--card-border); transition: var(--transition); z-index: 1;">
                      <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80" alt="Backend Systems" style="width: 100%; height: 150px; object-fit: cover; border-radius: 10px; margin-bottom: 20px;">
                      <h4 style="color: var(--accent-blue); margin-bottom: 15px;" data-en="Backend Systems" data-ar="أنظمة الخلفية">Backend Systems</h4>
                      <p style="color: var(--text-gray); font-size: 0.9rem;" data-en="Scalable Node.js, Python, and Java backends with microservices architecture." data-ar="أنظمة خلفية قابلة للتوسع بـ Node.js وPython وJava مع هندسة الخدمات المصغرة.">Scalable Node.js, Python, and Java backends with microservices architecture.</p>
                  </div>
-                 <div class="tech-item" style="text-align: center; background: var(--card-bg); border-radius: 15px; padding: 25px; border: 1px solid var(--card-border); transition: var(--transition);">
+                 <div class="tech-item" style="text-align: center; background: var(--card-bg); border-radius: 15px; padding: 25px; border: 1px solid var(--card-border); transition: var(--transition); z-index: 1;">
                      <img src="https://images.unsplash.com/photo-1607252650355-f7fd0460ccdb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80" alt="Mobile Development" style="width: 100%; height: 150px; object-fit: cover; border-radius: 10px; margin-bottom: 20px;">
                      <h4 style="color: var(--accent-purple); margin-bottom: 15px;" data-en="Mobile Development" data-ar="تطوير الهاتف المحمول">Mobile Development</h4>
                      <p style="color: var(--text-gray); font-size: 0.9rem;" data-en="Flutter, React Native, and native iOS/Android development for cross-platform excellence." data-ar="Flutter وReact Native وتطوير iOS/Android الأصلي للتميز متعدد المنصات.">Flutter, React Native, and native iOS/Android development for cross-platform excellence.</p>
                  </div>
-                 <div class="tech-item" style="text-align: center; background: var(--card-bg); border-radius: 15px; padding: 25px; border: 1px solid var(--card-border); transition: var(--transition);">
+                 <div class="tech-item" style="text-align: center; background: var(--card-bg); border-radius: 15px; padding: 25px; border: 1px solid var(--card-border); transition: var(--transition); z-index: 1;">
                      <img src="ai.jpg" alt="AI & Machine Learning" style="width: 100%; height: 150px; object-fit: cover; border-radius: 10px; margin-bottom: 20px;">
                      <h4 style="color: var(--accent-pink); margin-bottom: 15px;" data-en="AI & Machine Learning" data-ar="الذكاء الاصطناعي وتعلم الآلة">AI & Machine Learning</h4>
                      <p style="color: var(--text-gray); font-size: 0.9rem;" data-en="TensorFlow, PyTorch, and custom ML models for intelligent automation." data-ar="TensorFlow وPyTorch ونماذج ML مخصصة للأتمتة الذكية.">TensorFlow, PyTorch, and custom ML models for intelligent automation.</p>
                  </div>
-                 <div class="tech-item" style="text-align: center; background: var(--card-bg); border-radius: 15px; padding: 25px; border: 1px solid var(--card-border); transition: var(--transition);">
+                 <div class="tech-item" style="text-align: center; background: var(--card-bg); border-radius: 15px; padding: 25px; border: 1px solid var(--card-border); transition: var(--transition); z-index: 1;">
                      <img src="https://images.unsplash.com/photo-1533750349088-cd871a92f312?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80" alt="Cloud & DevOps" style="width: 100%; height: 150px; object-fit: cover; border-radius: 10px; margin-bottom: 20px;">
                      <h4 style="color: var(--accent-blue); margin-bottom: 15px;" data-en="Cloud & DevOps" data-ar="السحابة وDevOps">Cloud & DevOps</h4>
                      <p style="color: var(--text-gray); font-size: 0.9rem;" data-en="AWS, Azure, Docker, and Kubernetes for scalable cloud solutions." data-ar="AWS وAzure وDocker وKubernetes لحلول سحابية قابلة للتوسع.">AWS, Azure, Docker, and Kubernetes for scalable cloud solutions.</p>
@@ -1800,19 +1992,19 @@
                 <h2 data-en="Trusted by Industry Leaders" data-ar="موثوق به من قادة الصناعة">Trusted by Industry Leaders</h2>
             </div>
             <div class="client-showcase" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-bottom: 50px;">
-                <div class="client-card" style="background: var(--card-bg); border-radius: 15px; padding: 30px; text-align: center; border: 1px solid var(--card-border); transition: var(--transition);">
+                <div class="client-card" style="background: var(--card-bg); border-radius: 15px; padding: 30px; text-align: center; border: 1px solid var(--card-border); transition: var(--transition); z-index: 1;">
                     <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Client Success 1" style="width: 100%; height: 200px; object-fit: cover; border-radius: 10px; margin-bottom: 20px;">
                     <h4 style="color: var(--accent-blue); margin-bottom: 15px;" data-en="Global Tech Solutions" data-ar="حلول التكنولوجيا العالمية">Global Tech Solutions</h4>
                     <p style="color: var(--text-gray); margin-bottom: 20px;" data-en='"TERRA Technologies transformed our entire digital infrastructure, resulting in 40% efficiency improvement."' data-ar='"حولت تيرا تك البنية التحتية الرقمية بأكملها، مما أدى إلى تحسين الكفاءة بنسبة 40٪."'>"TERRA Technologies transformed our entire digital infrastructure, resulting in 40% efficiency improvement."</p>
                     <div style="color: var(--accent-purple); font-weight: 600;" data-en="- Sarah Johnson, CTO" data-ar="- سارة جونسون، مدير التكنولوجيا التنفيذي">- Sarah Johnson, CTO</div>
                 </div>
-                <div class="client-card" style="background: var(--card-bg); border-radius: 15px; padding: 30px; text-align: center; border: 1px solid var(--card-border); transition: var(--transition);">
+                <div class="client-card" style="background: var(--card-bg); border-radius: 15px; padding: 30px; text-align: center; border: 1px solid var(--card-border); transition: var(--transition); z-index: 1;">
                     <img src="https://images.unsplash.com/photo-1581276879432-15e50529f34b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80" alt="Client Success 2" style="width: 100%; height: 200px; object-fit: cover; border-radius: 10px; margin-bottom: 20px;">
                     <h4 style="color: var(--accent-purple); margin-bottom: 15px;" data-en="Innovation Corp" data-ar="شركة الابتكار">Innovation Corp</h4>
                     <p style="color: var(--text-gray); margin-bottom: 20px;" data-en='"Their AI solutions revolutionized our customer service, increasing satisfaction by 60%."' data-ar='"حلول الذكاء الاصطناعي لديهم أحدثت ثورة في خدمة العملاء لدينا، مما زاد الرضا بنسبة 60٪."'>"Their AI solutions revolutionized our customer service, increasing satisfaction by 60%."</p>
                     <div style="color: var(--accent-blue); font-weight: 600;" data-en="- Michael Chen, CEO" data-ar="- مايكل تشين، الرئيس التنفيذي">- Michael Chen, CEO</div>
                 </div>
-                <div class="client-card" style="background: var(--card-bg); border-radius: 15px; padding: 30px; text-align: center; border: 1px solid var(--card-border); transition: var(--transition);">
+                <div class="client-card" style="background: var(--card-bg); border-radius: 15px; padding: 30px; text-align: center; border: 1px solid var(--card-border); transition: var(--transition); z-index: 1;">
                     <img src="https://images.unsplash.com/photo-1533750349088-cd871a92f312?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80" alt="Client Success 3" style="width: 100%; height: 200px; object-fit: cover; border-radius: 10px; margin-bottom: 20px;">
                     <h4 style="color: var(--accent-pink); margin-bottom: 15px;" data-en="Smart Industries" data-ar="الصناعات الذكية">Smart Industries</h4>
                     <p style="color: var(--text-gray); margin-bottom: 20px;" data-en='"The IoT system they built saved us $2M annually in operational costs."' data-ar='"النظام الذي بنوه لإنترنت الأشياء وفر لنا 2 مليون دولار سنوياً في التكاليف التشغيلية."'>"The IoT system they built saved us $2M annually in operational costs."</p>
@@ -2082,12 +2274,27 @@
             });
         };
 
-        // Add parallax effect to hero section
+        // Add smooth reveal effect for elements
+        const revealElements = () => {
+            const reveals = document.querySelectorAll('.service-card, .portfolio-item, .feature-card, .trust-item, .client-card, .tech-item, .showcase-item');
+            
+            reveals.forEach(element => {
+                const windowHeight = window.innerHeight;
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < windowHeight - elementVisible) {
+                    element.classList.add('active');
+                }
+            });
+        };
+
+        // Add parallax effect to hero background shapes only (not the whole hero)
         const parallaxEffect = () => {
             const scrolled = window.pageYOffset;
-            const hero = document.querySelector('.hero');
-            if (hero) {
-                hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+            const shapesLayer = document.querySelector('.hero-shapes');
+            if (shapesLayer) {
+                shapesLayer.style.transform = `translate3d(0, ${scrolled * 0.2}px, 0)`;
             }
         };
 
@@ -2101,8 +2308,10 @@
 
         window.addEventListener('scroll', animateOnScroll);
         window.addEventListener('scroll', parallaxEffect);
+        window.addEventListener('scroll', revealElements);
         window.addEventListener('load', animateOnScroll);
         window.addEventListener('load', animateShapes);
+        window.addEventListener('load', revealElements);
 
         // Project Detail Modal
         const modal = document.getElementById('projectModal');
@@ -2790,7 +2999,7 @@
             if (currentLang === 'ar') {
                 langText.textContent = 'English';
                 body.setAttribute('dir', 'rtl');
-                body.style.fontFamily = 'Arial, sans-serif';
+                body.style.fontFamily = 'Cairo, Poppins, sans-serif';
             } else {
                 langText.textContent = 'العربية';
                 body.removeAttribute('dir');
@@ -2861,6 +3070,31 @@
             const langToggle = document.getElementById('langToggle');
             if (langToggle) {
                 langToggle.addEventListener('click', switchLanguage);
+            }
+
+            // Progressive loading and decoding for non-critical images
+            const criticalAreas = ['header', '.hero', '.modal-header'];
+            document.querySelectorAll('img').forEach(img => {
+                const isCritical = criticalAreas.some(sel => img.closest(sel));
+                if (!isCritical) {
+                    if (!img.hasAttribute('loading')) img.setAttribute('loading', 'lazy');
+                    if (!img.hasAttribute('decoding')) img.setAttribute('decoding', 'async');
+                } else {
+                    img.setAttribute('fetchpriority', 'high');
+                }
+            });
+        });
+
+        // Loading animation
+        window.addEventListener('load', function() {
+            const loadingAnimation = document.getElementById('loadingAnimation');
+            if (loadingAnimation) {
+                setTimeout(() => {
+                    loadingAnimation.classList.add('fade-out');
+                    setTimeout(() => {
+                        loadingAnimation.style.display = 'none';
+                    }, 500);
+                }, 1500);
             }
         });
     </script>
