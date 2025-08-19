@@ -146,12 +146,6 @@
                 flex-shrink: 0;
             }
             
-            .lang-btn {
-                width: 32px;
-                height: 32px;
-                font-size: 0.8rem;
-            }
-            
             .hamburger {
                 margin-left: 8px;
                 font-size: 1.2rem;
@@ -220,69 +214,87 @@
             margin-left: 15px;
         }
 
-        .lang-btn {
-            background: linear-gradient(45deg, var(--accent-blue), var(--accent-purple));
-            color: var(--text-light);
-            border: none;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            font-weight: 600;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: var(--transition);
-            font-size: 1rem;
-            overflow: hidden;
+        /* From Uiverse.io by Galahhad (modified to use EN/AR switch) */
+        /* switch settings 👇 */
+        .ui-switch {
+          --switch-bg: rgba(135, 150, 165, 0.3);
+          --switch-width: 48px;
+          --switch-height: 20px;
+          --circle-diameter: 32px;
+          --circle-bg: linear-gradient(45deg, var(--accent-blue), var(--accent-purple));
+          --circle-inset: calc((var(--circle-diameter) - var(--switch-height)) / 2);
         }
 
-        /* Mobile Language Switcher - Full Coverage */
+        .ui-switch input {
+          display: none;
+        }
+
+        .slider {
+          appearance: none;
+          width: var(--switch-width);
+          height: var(--switch-height);
+          background: var(--switch-bg);
+          border-radius: 999px;
+          position: relative;
+          cursor: pointer;
+        }
+
+        .slider .circle {
+          top: calc(var(--circle-inset) * -1);
+          left: 0;
+          width: var(--circle-diameter);
+          height: var(--circle-diameter);
+          position: absolute;
+          background: var(--circle-bg);
+          border-radius: inherit;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 12px;
+          font-weight: 700;
+          color: #fff;
+          box-shadow: 0 0 20px rgba(0, 243, 255, 0.3), 0 0 40px rgba(185, 103, 255, 0.2);
+          transition: all 0.3s ease;
+        }
+
+        /* default content = EN */
+        .slider .circle::after {
+          content: "EN";
+        }
+
+        /* when checked move circle and change to AR  */
+        .ui-switch input:checked + .slider .circle {
+          left: calc(100% - var(--circle-diameter));
+        }
+
+        .ui-switch input:checked + .slider .circle::after {
+          content: "AR";
+        }
+
+        /* Hover effects */
+        .ui-switch:hover .slider {
+          background: rgba(135, 150, 165, 0.5);
+        }
+
+        .ui-switch:hover .circle {
+          transform: scale(1.05);
+          box-shadow: 0 0 25px rgba(0, 243, 255, 0.4), 0 0 50px rgba(185, 103, 255, 0.3);
+        }
+
+        /* Mobile Language Switcher - Responsive adjustments */
         @media (max-width: 768px) {
-            .lang-btn {
-                width: 32px;
-                height: 32px;
-                font-size: 0.8rem;
-                border-radius: 50%;
-                overflow: hidden;
+            .ui-switch {
+                --switch-width: 44px;
+                --switch-height: 18px;
+                --circle-diameter: 28px;
             }
         }
 
         @media (max-width: 576px) {
-            .lang-btn {
-                width: 30px;
-                height: 30px;
-                font-size: 0.75rem;
-                border-radius: 50%;
-                overflow: hidden;
-            }
-        }
-
-        .lang-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(185, 103, 255, 0.4);
-        }
-
-        .lang-btn i {
-            font-size: 1.2rem;
-        }
-
-        .lang-btn .lang-text {
-            font-size: 0.75rem;
-            font-weight: 600;
-            line-height: 1;
-        }
-
-        /* Mobile text sizing */
-        @media (max-width: 768px) {
-            .lang-btn .lang-text {
-                font-size: 0.7rem;
-            }
-        }
-
-        @media (max-width: 576px) {
-            .lang-btn .lang-text {
-                font-size: 0.65rem;
+            .ui-switch {
+                --switch-width: 40px;
+                --switch-height: 16px;
+                --circle-diameter: 24px;
             }
         }
 
@@ -343,6 +355,96 @@
             overflow: hidden;
             background: radial-gradient(circle at center, rgba(185, 103, 255, 0.1) 0%, rgba(10, 10, 15, 0) 70%);
             padding-top: 70px;
+        }
+
+        .hero-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        .hero-bg-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.15;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(10, 10, 15, 0.8), rgba(185, 103, 255, 0.1));
+        }
+
+        .floating-tech-elements {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .tech-element {
+            opacity: 0.8;
+            transition: all 0.3s ease;
+        }
+
+        .tech-element:hover {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+
+        .services-bg-elements {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .bg-element {
+            animation: float 20s infinite ease-in-out;
+        }
+
+        .client-trust-bg-elements {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .trust-bg-element {
+            animation: float 35s infinite ease-in-out;
+        }
+
+        .contact-bg-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .pattern-element {
+            animation: float 45s infinite ease-in-out;
         }
 
         /* Mobile Hero Adjustments */
@@ -679,13 +781,17 @@
         }
 
         .portfolio-item {
+            position: relative;
             border-radius: 15px;
             overflow: hidden;
-            position: relative;
-            height: 250px;
-            transition: var(--transition);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), 0 0 15px rgba(0, 243, 255, 0.1);
+            aspect-ratio: 4/3;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            background: var(--card-bg);
             border: 1px solid var(--card-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
             opacity: 0;
             transform: translateY(20px);
             cursor: pointer;
@@ -705,8 +811,12 @@
         .portfolio-img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
+            object-fit: contain;
+            border-radius: 15px;
+            transition: var(--transition);
+            background-color: #0f0f1a;
+            padding: 10px;
+            box-sizing: border-box;
         }
 
         .portfolio-overlay {
@@ -1128,6 +1238,63 @@
             border-top: 1px solid rgba(255, 255, 255, 0.1);
             flex-direction: column;
             gap: 20px;
+        }
+
+        /* Loading Animation */
+        .loading-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-dark);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            transition: opacity 0.5s ease;
+        }
+
+        .loading-animation.fade-out {
+            opacity: 0;
+        }
+
+        .loading-logo svg {
+            width: 3.25em;
+            transform-origin: center;
+            animation: rotate4 2s linear infinite;
+        }
+
+        .loading-logo circle {
+            fill: none;
+            stroke: var(--accent-blue);
+            stroke-width: 2;
+            stroke-dasharray: 1, 200;
+            stroke-dashoffset: 0;
+            stroke-linecap: round;
+            animation: dash4 1.5s ease-in-out infinite;
+        }
+
+        @keyframes rotate4 {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes dash4 {
+            0% {
+                stroke-dasharray: 1, 200;
+                stroke-dashoffset: 0;
+            }
+
+            50% {
+                stroke-dasharray: 90, 200;
+                stroke-dashoffset: -35px;
+            }
+
+            100% {
+                stroke-dashoffset: -125px;
+            }
         }
 
         /* Animations */
@@ -1562,12 +1729,6 @@
                 margin-left: 6px;
             }
             
-            .lang-btn {
-                width: 30px;
-                height: 30px;
-                font-size: 0.75rem;
-            }
-            
             .hamburger {
                 margin-left: 6px;
                 font-size: 1.1rem;
@@ -1658,7 +1819,10 @@
     <!-- Loading Animation -->
     <div class="loading-animation" id="loadingAnimation">
         <div class="loading-logo">
-            <i class="fas fa-rocket"></i>
+            <!-- From Uiverse.io by barisdogansutcu -->
+            <svg viewBox="25 25 50 50">
+                <circle r="20" cy="50" cx="50"></circle>
+            </svg>
         </div>
     </div>
 
@@ -1679,10 +1843,13 @@
                     <li><a href="#contact" data-en="Contact" data-ar="اتصل بنا">Contact</a></li>
                 </ul>
                 <div class="language-switcher">
-                    <button id="langToggle" class="lang-btn">
-                        <span class="lang-text">العربية</span>
-                        <i class="fas fa-globe"></i>
-                    </button>
+                    <!-- From Uiverse.io by Galahhad (modified to use EN/AR switch) -->
+                    <label class="ui-switch">
+                      <input type="checkbox" id="langToggle">
+                      <div class="slider">
+                        <div class="circle"></div>
+                      </div>
+                    </label>
                 </div>
                 <div class="hamburger">
                     <i class="fas fa-bars"></i>
@@ -1693,10 +1860,25 @@
 
     <!-- Hero Section -->
     <section id="hero" class="hero">
+        <div class="hero-background">
+            <img src="https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80" alt="Digital Technology Background" class="hero-bg-img">
+            <div class="hero-overlay"></div>
+        </div>
         <div class="hero-shapes">
             <div class="shape"></div>
             <div class="shape"></div>
             <div class="shape"></div>
+        </div>
+        <div class="floating-tech-elements">
+            <div class="tech-element" style="position: absolute; top: 20%; right: 15%; width: 60px; height: 60px; background: rgba(185, 103, 255, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; animation: float 8s infinite ease-in-out;">
+                <i class="fas fa-code" style="color: var(--accent-purple); font-size: 24px;"></i>
+            </div>
+            <div class="tech-element" style="position: absolute; top: 70%; left: 10%; width: 50px; height: 50px; background: rgba(255, 107, 139, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; animation: float 10s infinite ease-in-out reverse;">
+                <i class="fas fa-mobile-alt" style="color: var(--accent-pink); font-size: 20px;"></i>
+            </div>
+            <div class="tech-element" style="position: absolute; top: 40%; left: 80%; width: 70px; height: 70px; background: rgba(64, 156, 255, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; animation: float 12s infinite ease-in-out;">
+                <i class="fas fa-brain" style="color: var(--accent-blue); font-size: 28px;"></i>
+            </div>
         </div>
         <div class="container">
             <div class="hero-content">
@@ -1757,6 +1939,10 @@
 
     <!-- Services Section -->
     <section id="services" class="section">
+        <div class="services-bg-elements">
+            <div class="bg-element" style="position: absolute; top: 10%; left: 5%; width: 100px; height: 100px; background: linear-gradient(45deg, rgba(185, 103, 255, 0.05), rgba(255, 107, 139, 0.05)); border-radius: 50%; filter: blur(40px);"></div>
+            <div class="bg-element" style="position: absolute; bottom: 20%; right: 10%; width: 150px; height: 150px; background: linear-gradient(45deg, rgba(64, 156, 255, 0.05), rgba(185, 103, 255, 0.05)); border-radius: 50%; filter: blur(50px);"></div>
+        </div>
         <div class="container">
             <div class="section-title">
                 <h2 data-en="Our Services" data-ar="خدماتنا">Our Services</h2>
@@ -1786,7 +1972,7 @@
                          <img src="https://images.unsplash.com/photo-1607252650355-f7fd0460ccdb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Mobile App Mockup" class="mockup-img">
                      </div>
                      <div class="service-gallery" style="margin-top: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-                         <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1374&q=80" alt="Mobile Project 1" style="width: 100%; height: 80px; object-fit: cover; border-radius: 8px; transition: transform 0.3s ease;">
+                         <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80" alt="Mobile Project 1" style="width: 100%; height: 80px; object-fit: cover; border-radius: 8px; transition: transform 0.3s ease;">
                          <img src="https://images.unsplash.com/photo-1611224923853-80b023f02d71?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80" alt="Mobile Project 2" style="width: 100%; height: 80px; object-fit: cover; border-radius: 8px; transition: transform 0.3s ease;">
                      </div>
 
@@ -1801,7 +1987,7 @@
                          <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Software System" class="mockup-img">
                      </div>
                      <div class="service-gallery" style="margin-top: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-                         <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80" alt="Software Project 1" style="width: 100%; height: 80px; object-fit: cover; border-radius: 8px; transition: transform 0.3s ease;">
+                         <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80" alt="Software Project 1" style="width: 100%; height: 80px; object-fit: cover; border-radius: 8px; transition: transform 0.3s ease;">
                          <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80" alt="Software Project 2" style="width: 100%; height: 80px; object-fit: cover; border-radius: 8px; transition: transform 0.3s ease;">
                      </div>
                 </div>
@@ -1872,7 +2058,7 @@
                 
                 <!-- Project 3 -->
                 <div class="portfolio-item" data-category="ai" data-project="3">
-                    <img src="ai.jpg" alt="Project 3" class="portfolio-img">
+                    <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80" alt="Project 3" class="portfolio-img">
                     <div class="portfolio-overlay">
                         <span class="category" data-en="AI Solution" data-ar="حل الذكاء الاصطناعي">AI Solution</span>
                         <h3 data-en="Healthcare AI Assistant" data-ar="مساعد الذكاء الاصطناعي للرعاية الصحية">Healthcare AI Assistant</h3>
@@ -1917,7 +2103,7 @@
                 
                 <!-- Project 6 -->
                 <div class="portfolio-item" data-category="ai" data-project="6">
-                    <img src="ai.jpg" alt="Project 6" class="portfolio-img">
+                    <img src="https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80" alt="Project 6" class="portfolio-img">
                     <div class="portfolio-overlay">
                         <span class="category" data-en="AI Solution" data-ar="حل الذكاء الاصطناعي">AI Solution</span>
                         <h3 data-en="Predictive Maintenance System" data-ar="نظام الصيانة التنبؤية">Predictive Maintenance System</h3>
@@ -1932,7 +2118,7 @@
                 
                 <!-- Project 7 -->
                 <div class="portfolio-item" data-category="mobile" data-project="7">
-                    <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1374&q=80" alt="Project 7" class="portfolio-img">
+                    <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80" alt="Project 7" class="portfolio-img">
                     <div class="portfolio-overlay">
                         <span class="category" data-en="Mobile Application" data-ar="تطبيق الهاتف المحمول">Mobile Application</span>
                         <h3 data-en="Fitness Tracking Platform" data-ar="منصة تتبع اللياقة البدنية">Fitness Tracking Platform</h3>
@@ -2025,7 +2211,7 @@
 
                 <!-- Project 16 - Flutter App -->
                 <div class="portfolio-item" data-category="mobile" data-project="16">
-                    <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1374&q=80" alt="Project 16" class="portfolio-img">
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80" alt="Project 16" class="portfolio-img">
                     <div class="portfolio-overlay">
                         <span class="category">Flutter Application</span>
                         <h3>E-commerce Flutter App</h3>
@@ -2137,7 +2323,7 @@
                     <h3 data-en="Innovation First" data-ar="الابتكار أولاً">Innovation First</h3>
                     <p data-en="We stay ahead of technology trends and leverage cutting-edge solutions to deliver exceptional results for your business." data-ar="نحن نتقدم على اتجاهات التكنولوجيا ونستفيد من الحلول المتطورة لتقديم نتائج استثنائية لعملك.">We stay ahead of technology trends and leverage cutting-edge solutions to deliver exceptional results for your business.</p>
                     <div class="feature-image" style="margin-top: 20px;">
-                        <img src="ai.jpg" alt="Innovation" style="width: 100%; height: 120px; object-fit: cover; border-radius: 8px; transition: transform 0.3s ease;">
+                        <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80" alt="Innovation" style="width: 100%; height: 120px; object-fit: cover; border-radius: 8px; transition: transform 0.3s ease;">
                     </div>
                 </div>
                 <div class="feature-card">
@@ -2187,7 +2373,7 @@
                      <p style="color: var(--text-gray); font-size: 0.9rem;" data-en="Flutter, React Native, and native iOS/Android development for cross-platform excellence." data-ar="Flutter وReact Native وتطوير iOS/Android الأصلي للتميز متعدد المنصات.">Flutter, React Native, and native iOS/Android development for cross-platform excellence.</p>
                  </div>
                  <div class="tech-item" style="text-align: center; background: var(--card-bg); border-radius: 15px; padding: 25px; border: 1px solid var(--card-border); transition: var(--transition); z-index: 1;">
-                     <img src="ai.jpg" alt="AI & Machine Learning" style="width: 100%; height: 150px; object-fit: cover; border-radius: 10px; margin-bottom: 20px;">
+                     <img src="https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80" alt="AI & Machine Learning" style="width: 100%; height: 150px; object-fit: cover; border-radius: 10px; margin-bottom: 20px;">
                      <h4 style="color: var(--accent-pink); margin-bottom: 15px;" data-en="AI & Machine Learning" data-ar="الذكاء الاصطناعي وتعلم الآلة">AI & Machine Learning</h4>
                      <p style="color: var(--text-gray); font-size: 0.9rem;" data-en="TensorFlow, PyTorch, and custom ML models for intelligent automation." data-ar="TensorFlow وPyTorch ونماذج ML مخصصة للأتمتة الذكية.">TensorFlow, PyTorch, and custom ML models for intelligent automation.</p>
                  </div>
@@ -2202,6 +2388,10 @@
 
      <!-- Client Trust Section -->
      <section class="section" style="background: var(--bg-darker);">
+        <div class="client-trust-bg-elements">
+            <div class="trust-bg-element" style="position: absolute; top: 20%; left: 12%; width: 140px; height: 140px; background: linear-gradient(45deg, rgba(185, 103, 255, 0.04), rgba(64, 156, 255, 0.04)); border-radius: 50%; filter: blur(80px); animation: float 35s infinite ease-in-out;"></div>
+            <div class="trust-bg-element" style="position: absolute; bottom: 15%; right: 8%; width: 160px; height: 160px; background: linear-gradient(45deg, rgba(255, 107, 139, 0.04), rgba(185, 103, 255, 0.04)); border-radius: 50%; filter: blur(90px); animation: float 40s infinite ease-in-out reverse;"></div>
+        </div>
         <div class="container">
             <div class="section-title">
                 <h2 data-en="Trusted by Industry Leaders" data-ar="موثوق به من قادة الصناعة">Trusted by Industry Leaders</h2>
@@ -2211,19 +2401,19 @@
                     <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Client Success 1" style="width: 100%; height: 200px; object-fit: cover; border-radius: 10px; margin-bottom: 20px;">
                     <h4 style="color: var(--accent-blue); margin-bottom: 15px;" data-en="Global Tech Solutions" data-ar="حلول التكنولوجيا العالمية">Global Tech Solutions</h4>
                     <p style="color: var(--text-gray); margin-bottom: 20px;" data-en='"TERRA Technologies transformed our entire digital infrastructure, resulting in 40% efficiency improvement."' data-ar='"حولت تيرا تك البنية التحتية الرقمية بأكملها، مما أدى إلى تحسين الكفاءة بنسبة 40٪."'>"TERRA Technologies transformed our entire digital infrastructure, resulting in 40% efficiency improvement."</p>
-                    <div style="color: var(--accent-purple); font-weight: 600;" data-en="- Sarah Johnson, CTO" data-ar="- سارة جونسون، مدير التكنولوجيا التنفيذي">- Sarah Johnson, CTO</div>
+                    <div style="color: var(--accent-purple); font-weight: 600;" data-en="- Sarah Mohamed" data-ar="- سارة محمد">- Sarah Mohamed</div>
                 </div>
                 <div class="client-card" style="background: var(--card-bg); border-radius: 15px; padding: 30px; text-align: center; border: 1px solid var(--card-border); transition: var(--transition); z-index: 1;">
                     <img src="https://images.unsplash.com/photo-1581276879432-15e50529f34b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80" alt="Client Success 2" style="width: 100%; height: 200px; object-fit: cover; border-radius: 10px; margin-bottom: 20px;">
                     <h4 style="color: var(--accent-purple); margin-bottom: 15px;" data-en="Innovation Corp" data-ar="شركة الابتكار">Innovation Corp</h4>
                     <p style="color: var(--text-gray); margin-bottom: 20px;" data-en='"Their AI solutions revolutionized our customer service, increasing satisfaction by 60%."' data-ar='"حلول الذكاء الاصطناعي لديهم أحدثت ثورة في خدمة العملاء لدينا، مما زاد الرضا بنسبة 60٪."'>"Their AI solutions revolutionized our customer service, increasing satisfaction by 60%."</p>
-                    <div style="color: var(--accent-blue); font-weight: 600;" data-en="- Michael Chen, CEO" data-ar="- مايكل تشين، الرئيس التنفيذي">- Michael Chen, CEO</div>
+                    <div style="color: var(--accent-blue); font-weight: 600;" data-en="- Omar Hassan" data-ar="- عمر حسن">- Omar Hassan</div>
                 </div>
                 <div class="client-card" style="background: var(--card-bg); border-radius: 15px; padding: 30px; text-align: center; border: 1px solid var(--card-border); transition: var(--transition); z-index: 1;">
                     <img src="https://images.unsplash.com/photo-1533750349088-cd871a92f312?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80" alt="Client Success 3" style="width: 100%; height: 200px; object-fit: cover; border-radius: 10px; margin-bottom: 20px;">
                     <h4 style="color: var(--accent-pink); margin-bottom: 15px;" data-en="Smart Industries" data-ar="الصناعات الذكية">Smart Industries</h4>
                     <p style="color: var(--text-gray); margin-bottom: 20px;" data-en='"The IoT system they built saved us $2M annually in operational costs."' data-ar='"النظام الذي بنوه لإنترنت الأشياء وفر لنا 2 مليون دولار سنوياً في التكاليف التشغيلية."'>"The IoT system they built saved us $2M annually in operational costs."</p>
-                    <div style="color: var(--accent-purple); font-weight: 600;" data-en="- David Rodriguez, Operations Director" data-ar="- ديفيد رودريغيز، مدير العمليات">- David Rodriguez, Operations Director</div>
+                    <div style="color: var(--accent-purple); font-weight: 600;" data-en="- Nour Eldin" data-ar="- نور الدين">- Nour Eldin</div>
                 </div>
             </div>
         </div>
@@ -2231,6 +2421,10 @@
 
     <!-- Contact Section -->
     <section id="contact" class="section">
+        <div class="contact-bg-pattern">
+            <div class="pattern-element" style="position: absolute; top: 10%; right: 15%; width: 80px; height: 80px; background: linear-gradient(45deg, rgba(185, 103, 255, 0.03), rgba(64, 156, 255, 0.03)); border-radius: 50%; filter: blur(50px); animation: float 45s infinite ease-in-out;"></div>
+            <div class="pattern-element" style="position: absolute; bottom: 20%; left: 10%; width: 100px; height: 100px; background: linear-gradient(45deg, rgba(255, 107, 139, 0.03), rgba(185, 103, 255, 0.03)); border-radius: 50%; filter: blur(60px); animation: float 50s infinite ease-in-out reverse;"></div>
+        </div>
         <div class="container">
             <div class="section-title">
                 <h2 data-en="Let's Build Together" data-ar="دعنا نبني معاً">Let's Build Together</h2>
@@ -2373,7 +2567,7 @@
                 <div class="modal-footer">
                     <div class="client-testimonial">
                         <p data-en='"Terra Tech delivered beyond our expectations. Their technical expertise is unmatched."' data-ar='"سلمت تيرا تك ما يتجاوز توقعاتنا. خبرتهم التقنية لا مثيل لها."'>"Terra Tech delivered beyond our expectations. Their technical expertise is unmatched."</p>
-                        <p><strong data-en="John Smith" data-ar="جون سميث">John Smith</strong>, <span data-en="CEO at TechCorp" data-ar="الرئيس التنفيذي في تيك كورب">CEO at TechCorp</span></p>
+                        <p><strong data-en="Ahmed Elmasry" data-ar="أحمد المصري">Ahmed Elmasry</strong></p>
                     </div>
                 </div>
             </div>
@@ -3129,6 +3323,9 @@
                         modal.style.display = 'block';
                         document.body.style.overflow = 'hidden';
                         
+                        // Update modal testimonial with fresh random name
+                        updateTestimonialNames();
+                        
                         // Focus management for accessibility
                         modal.focus();
                         closeModal.focus();
@@ -3206,23 +3403,148 @@
         // Language switching functionality
         let currentLang = 'en';
         
+        // Global variables to store selected testimonial names for consistency
+        let selectedTestimonialNames = {
+            name1: null,
+            name2: null,
+            name3: null,
+            modalName: null
+        };
+        
+        // Arabic names arrays for testimonials
+        const arabicNames = {
+            en: [
+                "Ahmed Elmasry", "Sarah Mohamed", "Omar Hassan", "Nour Eldin", 
+                "Fatima Ali", "Khalid Ibrahim", "Aisha Rahman", "Youssef Ahmed",
+                "Layla Hassan", "Mahmoud Saleh", "Nadia Khalil", "Hassan Omar",
+                "Mariam Elsaid", "Tarek Mansour", "Dina Abdel", "Karim Mostafa",
+                "Zainab Hassan", "Amir Khalil", "Hana Ibrahim", "Samir Ahmed",
+                "Rania Saleh", "Bassem Omar", "Nour Hassan", "Tamer Ali"
+            ],
+            ar: [
+                "أحمد المصري", "سارة محمد", "عمر حسن", "نور الدين",
+                "فاطمة علي", "خالد إبراهيم", "عائشة رحمن", "يوسف أحمد",
+                "ليلى حسن", "محمود صالح", "نادية خليل", "حسن عمر",
+                "مريم السعيد", "طارق منصور", "دينا عبد", "كريم مصطفى",
+                "زينب حسن", "أمير خليل", "هناء إبراهيم", "سمير أحمد",
+                "رانيا صالح", "باسم عمر", "نور حسن", "تامر علي"
+            ]
+        };
+        
+        // Company names arrays
+        const companyNames = {
+            en: [
+                "Digital Solutions", "Tech Innovations", "Smart Systems", "Future Tech",
+                "Global Solutions", "Innovation Hub", "Digital Dynamics", "Tech Leaders",
+                "Smart Solutions", "Digital Future", "Tech Excellence", "Innovation Lab",
+                "NextGen Technologies", "Digital Pioneers", "Tech Visionaries", "Innovation Leaders",
+                "Smart Future", "Digital Excellence", "Tech Solutions Pro", "Innovation Partners"
+            ],
+            ar: [
+                "الحلول الرقمية", "الابتكارات التقنية", "الأنظمة الذكية", "تقنية المستقبل",
+                "الحلول العالمية", "مركز الابتكار", "الديناميكيات الرقمية", "قادة التقنية",
+                "الحلول الذكية", "المستقبل الرقمي", "التميز التقني", "مختبر الابتكار",
+                "تقنيات الجيل القادم", "رواد الرقمية", "رؤى التقنية", "قادة الابتكار",
+                "المستقبل الذكي", "التميز الرقمي", "حلول التقنية المحترفة", "شركاء الابتكار"
+            ]
+        };
+        
+        // Function to get random names and companies
+        function getRandomTestimonialData() {
+            const names = arabicNames[currentLang];
+            
+            // If names haven't been selected yet, select them randomly
+            if (!selectedTestimonialNames.name1) {
+                const randomIndex1 = Math.floor(Math.random() * names.length);
+                const randomIndex2 = Math.floor(Math.random() * names.length);
+                const randomIndex3 = Math.floor(Math.random() * names.length);
+                const randomIndexModal = Math.floor(Math.random() * names.length);
+                
+                // Store the English names for consistency
+                selectedTestimonialNames.name1 = arabicNames.en[randomIndex1];
+                selectedTestimonialNames.name2 = arabicNames.en[randomIndex2];
+                selectedTestimonialNames.name3 = arabicNames.en[randomIndex3];
+                selectedTestimonialNames.modalName = arabicNames.en[randomIndexModal];
+            }
+            
+            // Return names in current language (English transliteration or Arabic script)
+            const name1Index = arabicNames.en.indexOf(selectedTestimonialNames.name1);
+            const name2Index = arabicNames.en.indexOf(selectedTestimonialNames.name2);
+            const name3Index = arabicNames.en.indexOf(selectedTestimonialNames.name3);
+            const modalNameIndex = arabicNames.en.indexOf(selectedTestimonialNames.modalName);
+            
+            return {
+                name1: arabicNames[currentLang][name1Index],
+                name2: arabicNames[currentLang][name2Index],
+                name3: arabicNames[currentLang][name3Index],
+                modalName: arabicNames[currentLang][modalNameIndex]
+            };
+        }
+        
+        // Function to update testimonial names
+        function updateTestimonialNames() {
+            const testimonialData = getRandomTestimonialData();
+            
+            // Update client card names
+            const clientCards = document.querySelectorAll('.client-card');
+            if (clientCards.length >= 3) {
+                // First card
+                const name1 = clientCards[0].querySelector('div[style*="color: var(--accent-purple)"]');
+                if (name1) {
+                    name1.textContent = `- ${testimonialData.name1}`;
+                    name1.setAttribute('data-en', `- ${arabicNames.en[arabicNames[currentLang].indexOf(testimonialData.name1)]}`);
+                    name1.setAttribute('data-ar', `- ${arabicNames.ar[arabicNames.en.indexOf(arabicNames.en[arabicNames[currentLang].indexOf(testimonialData.name1)])]}`);
+                }
+                
+                // Second card
+                const name2 = clientCards[1].querySelector('div[style*="color: var(--accent-blue)"]');
+                if (name2) {
+                    name2.textContent = `- ${testimonialData.name2}`;
+                    name2.setAttribute('data-en', `- ${arabicNames.en[arabicNames[currentLang].indexOf(testimonialData.name2)]}`);
+                    name2.setAttribute('data-ar', `- ${arabicNames.ar[arabicNames.en.indexOf(arabicNames.en[arabicNames[currentLang].indexOf(testimonialData.name2)])]}`);
+                }
+                
+                // Third card
+                const name3 = clientCards[2].querySelector('div[style*="color: var(--accent-purple)"]');
+                if (name3) {
+                    name3.textContent = `- ${testimonialData.name3}`;
+                    name3.setAttribute('data-en', `- ${arabicNames.en[arabicNames[currentLang].indexOf(testimonialData.name3)]}`);
+                    name3.setAttribute('data-ar', `- ${arabicNames.ar[arabicNames.en.indexOf(arabicNames.en[arabicNames[currentLang].indexOf(testimonialData.name3)])]}`);
+                }
+            }
+            
+            // Update modal testimonial if open
+            const modalTestimonial = document.querySelector('.client-testimonial strong');
+            if (modalTestimonial) {
+                modalTestimonial.textContent = testimonialData.modalName;
+                modalTestimonial.setAttribute('data-en', arabicNames.en[arabicNames[currentLang].indexOf(testimonialData.modalName)]);
+                modalTestimonial.setAttribute('data-ar', arabicNames.ar[arabicNames.en.indexOf(arabicNames.en[arabicNames[currentLang].indexOf(testimonialData.modalName)])]);
+            }
+        }
+        
         function switchLanguage() {
             currentLang = currentLang === 'en' ? 'ar' : 'en';
-            const langText = document.querySelector('.lang-text');
+            const langToggle = document.getElementById('langToggle');
             const body = document.body;
             
+            // Update checkbox state to match current language
+            if (langToggle) {
+                langToggle.checked = currentLang === 'ar';
+            }
+            
             if (currentLang === 'ar') {
-                langText.textContent = 'En';
                 body.setAttribute('dir', 'rtl');
                 body.style.fontFamily = 'Cairo, Poppins, sans-serif';
             } else {
-                langText.textContent = 'Ar';
                 body.removeAttribute('dir');
                 body.style.fontFamily = '';
             }
             
             // Update all elements with data attributes
             updateLanguageElements();
+            
+            // Update testimonial names to ensure consistency across language switches
+            updateTestimonialNames();
         }
         
         function updateLanguageElements() {
@@ -3284,8 +3606,14 @@
         document.addEventListener('DOMContentLoaded', function() {
             const langToggle = document.getElementById('langToggle');
             if (langToggle) {
-                langToggle.addEventListener('click', switchLanguage);
+                langToggle.addEventListener('change', switchLanguage);
             }
+
+            // Initialize testimonial names
+            updateTestimonialNames();
+            
+            // Refresh testimonial names every 30 seconds for variety
+            setInterval(updateTestimonialNames, 30000);
 
             // Progressive loading and decoding for non-critical images
             const criticalAreas = ['header', '.hero', '.modal-header'];
@@ -3313,5 +3641,7 @@
             }
         });
     </script>
+    <script src="script.js"></script>
+    <script src="portfolio-images.js"></script>
 </body>
 </html>
