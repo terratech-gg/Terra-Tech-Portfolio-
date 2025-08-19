@@ -146,12 +146,6 @@
                 flex-shrink: 0;
             }
             
-            .lang-btn {
-                width: 32px;
-                height: 32px;
-                font-size: 0.8rem;
-            }
-            
             .hamburger {
                 margin-left: 8px;
                 font-size: 1.2rem;
@@ -220,69 +214,87 @@
             margin-left: 15px;
         }
 
-        .lang-btn {
-            background: linear-gradient(45deg, var(--accent-blue), var(--accent-purple));
-            color: var(--text-light);
-            border: none;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            font-weight: 600;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: var(--transition);
-            font-size: 1rem;
-            overflow: hidden;
+        /* From Uiverse.io by Galahhad (modified to use EN/AR switch) */
+        /* switch settings 👇 */
+        .ui-switch {
+          --switch-bg: rgba(135, 150, 165, 0.3);
+          --switch-width: 48px;
+          --switch-height: 20px;
+          --circle-diameter: 32px;
+          --circle-bg: linear-gradient(45deg, var(--accent-blue), var(--accent-purple));
+          --circle-inset: calc((var(--circle-diameter) - var(--switch-height)) / 2);
         }
 
-        /* Mobile Language Switcher - Full Coverage */
+        .ui-switch input {
+          display: none;
+        }
+
+        .slider {
+          appearance: none;
+          width: var(--switch-width);
+          height: var(--switch-height);
+          background: var(--switch-bg);
+          border-radius: 999px;
+          position: relative;
+          cursor: pointer;
+        }
+
+        .slider .circle {
+          top: calc(var(--circle-inset) * -1);
+          left: 0;
+          width: var(--circle-diameter);
+          height: var(--circle-diameter);
+          position: absolute;
+          background: var(--circle-bg);
+          border-radius: inherit;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 12px;
+          font-weight: 700;
+          color: #fff;
+          box-shadow: 0 0 20px rgba(0, 243, 255, 0.3), 0 0 40px rgba(185, 103, 255, 0.2);
+          transition: all 0.3s ease;
+        }
+
+        /* default content = EN */
+        .slider .circle::after {
+          content: "EN";
+        }
+
+        /* when checked move circle and change to AR  */
+        .ui-switch input:checked + .slider .circle {
+          left: calc(100% - var(--circle-diameter));
+        }
+
+        .ui-switch input:checked + .slider .circle::after {
+          content: "AR";
+        }
+
+        /* Hover effects */
+        .ui-switch:hover .slider {
+          background: rgba(135, 150, 165, 0.5);
+        }
+
+        .ui-switch:hover .circle {
+          transform: scale(1.05);
+          box-shadow: 0 0 25px rgba(0, 243, 255, 0.4), 0 0 50px rgba(185, 103, 255, 0.3);
+        }
+
+        /* Mobile Language Switcher - Responsive adjustments */
         @media (max-width: 768px) {
-            .lang-btn {
-                width: 32px;
-                height: 32px;
-                font-size: 0.8rem;
-                border-radius: 50%;
-                overflow: hidden;
+            .ui-switch {
+                --switch-width: 44px;
+                --switch-height: 18px;
+                --circle-diameter: 28px;
             }
         }
 
         @media (max-width: 576px) {
-            .lang-btn {
-                width: 30px;
-                height: 30px;
-                font-size: 0.75rem;
-                border-radius: 50%;
-                overflow: hidden;
-            }
-        }
-
-        .lang-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(185, 103, 255, 0.4);
-        }
-
-        .lang-btn i {
-            font-size: 1.2rem;
-        }
-
-        .lang-btn .lang-text {
-            font-size: 0.75rem;
-            font-weight: 600;
-            line-height: 1;
-        }
-
-        /* Mobile text sizing */
-        @media (max-width: 768px) {
-            .lang-btn .lang-text {
-                font-size: 0.7rem;
-            }
-        }
-
-        @media (max-width: 576px) {
-            .lang-btn .lang-text {
-                font-size: 0.65rem;
+            .ui-switch {
+                --switch-width: 40px;
+                --switch-height: 16px;
+                --circle-diameter: 24px;
             }
         }
 
@@ -1130,6 +1142,63 @@
             gap: 20px;
         }
 
+        /* Loading Animation */
+        .loading-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-dark);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            transition: opacity 0.5s ease;
+        }
+
+        .loading-animation.fade-out {
+            opacity: 0;
+        }
+
+        .loading-logo svg {
+            width: 3.25em;
+            transform-origin: center;
+            animation: rotate4 2s linear infinite;
+        }
+
+        .loading-logo circle {
+            fill: none;
+            stroke: var(--accent-blue);
+            stroke-width: 2;
+            stroke-dasharray: 1, 200;
+            stroke-dashoffset: 0;
+            stroke-linecap: round;
+            animation: dash4 1.5s ease-in-out infinite;
+        }
+
+        @keyframes rotate4 {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes dash4 {
+            0% {
+                stroke-dasharray: 1, 200;
+                stroke-dashoffset: 0;
+            }
+
+            50% {
+                stroke-dasharray: 90, 200;
+                stroke-dashoffset: -35px;
+            }
+
+            100% {
+                stroke-dashoffset: -125px;
+            }
+        }
+
         /* Animations */
         @keyframes fadeUp {
             to {
@@ -1562,12 +1631,6 @@
                 margin-left: 6px;
             }
             
-            .lang-btn {
-                width: 30px;
-                height: 30px;
-                font-size: 0.75rem;
-            }
-            
             .hamburger {
                 margin-left: 6px;
                 font-size: 1.1rem;
@@ -1658,7 +1721,10 @@
     <!-- Loading Animation -->
     <div class="loading-animation" id="loadingAnimation">
         <div class="loading-logo">
-            <i class="fas fa-rocket"></i>
+            <!-- From Uiverse.io by barisdogansutcu -->
+            <svg viewBox="25 25 50 50">
+                <circle r="20" cy="50" cx="50"></circle>
+            </svg>
         </div>
     </div>
 
@@ -1679,10 +1745,13 @@
                     <li><a href="#contact" data-en="Contact" data-ar="اتصل بنا">Contact</a></li>
                 </ul>
                 <div class="language-switcher">
-                    <button id="langToggle" class="lang-btn">
-                        <span class="lang-text">العربية</span>
-                        <i class="fas fa-globe"></i>
-                    </button>
+                    <!-- From Uiverse.io by Galahhad (modified to use EN/AR switch) -->
+                    <label class="ui-switch">
+                      <input type="checkbox" id="langToggle">
+                      <div class="slider">
+                        <div class="circle"></div>
+                      </div>
+                    </label>
                 </div>
                 <div class="hamburger">
                     <i class="fas fa-bars"></i>
@@ -3208,15 +3277,18 @@
         
         function switchLanguage() {
             currentLang = currentLang === 'en' ? 'ar' : 'en';
-            const langText = document.querySelector('.lang-text');
+            const langToggle = document.getElementById('langToggle');
             const body = document.body;
             
+            // Update checkbox state to match current language
+            if (langToggle) {
+                langToggle.checked = currentLang === 'ar';
+            }
+            
             if (currentLang === 'ar') {
-                langText.textContent = 'English';
                 body.setAttribute('dir', 'rtl');
                 body.style.fontFamily = 'Cairo, Poppins, sans-serif';
             } else {
-                langText.textContent = 'العربية';
                 body.removeAttribute('dir');
                 body.style.fontFamily = '';
             }
@@ -3284,7 +3356,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             const langToggle = document.getElementById('langToggle');
             if (langToggle) {
-                langToggle.addEventListener('click', switchLanguage);
+                langToggle.addEventListener('change', switchLanguage);
             }
 
             // Progressive loading and decoding for non-critical images
@@ -3315,3 +3387,5 @@
     </script>
 </body>
 </html>
+
+
